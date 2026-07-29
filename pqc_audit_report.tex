@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper,landscape]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tabularx}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=black,      
+    urlcolor=blue,
+    pdftitle={PQC Technical Audit Report - trustwallet/wallet-core},
+}
+
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+\title{\textbf{\Huge Post-Quantum Cryptography (PQC) Audit Report}\\[0.3em] \large Target Audit: \texttt{https://github.com/trustwallet/wallet-core.git} \\ \small Complete File Matrix, Inter-Module API Architecture, Mathematical Scoring \& Web Citations}
+\author{\textbf{pgcrypto PQC Scanner Engineering Team}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Executive Summary \& Audit Context}
+\textbf{Target Repository}: \url{https://github.com/trustwallet/wallet-core.git} \\
+\textbf{Scan Mode}: GitHub CLI / API Ingestion \\
+\textbf{Readiness Score}: \textbf{15 / 100 (Grade F - PQC Non-Compliant)} \\
+\textbf{Total Assets}: 20 Unique Cryptographic Algorithms | \textbf{Occurrences}: 1,952 Code Locations \\
+\textbf{Vulnerable Assets}: 10 | \textbf{Safe Assets}: 9 | \textbf{Estimated Migration Timeline}: 18 Weeks (Medium-term Initiative)
+
+\vspace{1em}
+
+\section{Mathematical Abbreviations Glossary \& Connecting the Dots}
+
+\subsection{1. Variable Abbreviations Glossary}
+\begin{itemize}
+    \item $S_{\text{base}}$: \textbf{Base Score} (0--100). The raw safety ratio of quantum-resistant assets.
+    \item $W_{\text{safe}}$: \textbf{Weighted Safe Assets}. Accumulated weight score of quantum-resistant algorithms.
+    \item $W_{\text{total}}$: \textbf{Total Weighted Assets}. Sum of weights across ALL detected cryptographic calls.
+    \item $w_{\text{ctx}}(i)$: \textbf{Context Weight}. Threat level of primitive $i$ (Key-Exchange/Signatures = $1.0$, Encryption = $0.7$, Hashes = $0.4$).
+    \item $c_i$: \textbf{Occurrence Count}. Total frequency of algorithm $i$ calls found in source code.
+    \item $B_{\text{PQC}}$: \textbf{PQC Adoption Bonus} ($+0$ to $+5$ pts). Reward for utilizing NIST FIPS 203/204 algorithms.
+    \item $P_{\text{critical}}$: \textbf{Critical Vulnerability Penalty} ($-0$ to $-15$ pts). Deduction for Category 0 algorithms (RSA, ECDSA).
+    \item $P_{\text{diversity}}$: \textbf{Polyglot Complexity Penalty} ($-0$ to $-5$ pts). Deduction for codebases spanning $> 2$ programming languages.
+    \item $P_{\text{PG}}$: \textbf{PostgreSQL Penalty} ($-0$ to $-10$ pts). Deduction for database security flaws (\texttt{pgcrypto} RSA, MD5).
+\end{itemize}
+
+\subsection{2. Connecting the Dots: Step-by-Step Mathematical Flow}
+\begin{enumerate}
+    \item \textbf{Asset Weighting}: Each detected code call accumulates impact score $= w_{\text{ctx}} \times c_i$. Safe calls contribute to $W_{\text{safe}}$; all calls to $W_{\text{total}}$.
+    \item \textbf{Base Safety Ratio}: Computes baseline percentage $S_{\text{base}} = \frac{W_{\text{safe}}}{W_{\text{total}}} \times 100$.
+    \item \textbf{Applying Bonus}: If $N_{\text{pqc}} > 0$, adds $B_{\text{PQC}} = \min\left(5, \frac{N_{\text{pqc}}}{N_{\text{assets}}} \times 10\right)$.
+    \item \textbf{Applying Penalties}: Deducts $P_{\text{critical}}$ for classical keys, $P_{\text{diversity}}$ for multi-language complexity, and $P_{\text{PG}}$ for database risks.
+    \item \textbf{Final Clamping}: Final Score $= \max\left(0, \min\left(100, \left\lfloor S_{\text{base}} + B_{\text{PQC}} - P_{\text{critical}} - P_{\text{diversity}} - P_{\text{PG}} \right\rceil\right)\right)$.
+\end{enumerate}
+
+\subsection{3. Pre-existing Codebase Formulas \& Equations}
+\[
+\text{Final Score} = \max\left(0, \min\left(100, \left\lfloor S_{\text{base}} + B_{\text{PQC}} - P_{\text{critical}} - P_{\text{diversity}} - P_{\text{PG}} \right\rceil\right)\right)
+\]
+\[
+S_{\text{base}} = \frac{W_{\text{safe}}}{W_{\text{total}}} \times 100 = \frac{\sum_{i \in \text{Safe}} w_{\text{ctx}}(i) \cdot c_i}{\sum_{j \in \text{All}} w_{\text{ctx}}(j) \cdot c_j} \times 100
+\]
+\begin{align*}
+B_{\text{PQC}} &= \min\left(5, \; \frac{N_{\text{pqc}}}{N_{\text{assets}}} \times 10\right) \qquad P_{\text{critical}} = \min\left(15, \; \frac{N_{\text{critical}}}{N_{\text{assets}}} \times 20\right) \\
+P_{\text{diversity}} &= \min\left(5, \; \max\left(0, (L - 2) \times 1.5\right)\right) \qquad P_{\text{PG}} = \min\left(10, \; \sum \text{RulePenalties}\right)
+\end{align*}
+
+\subsection{4. Origin \& Online Availability of Formulas}
+The exact numerical coefficients (e.g., $\min(5, \dots)$, $1.5$ multiplier) do not exist on a single webpage. Instead, they represent a custom algorithmic synthesis model that translates qualitative standards from NIST SP 800-57, NIST IR 8413, CISA Quantum Guidance, and PostgreSQL security docs into quantifiable linear equations.
+
+\subsection{5. Migration Timeline Weeks Formulation}
+\[
+\text{Total Migration Weeks} = \sum_{i} \text{effort\_weeks}(\text{algo}_i)
+\]
+\begin{itemize}
+    \item \textbf{Low Effort} (SHA-256, SHA-3, AES-256): 1 week per asset
+    \item \textbf{Medium Effort} (TLS 1.3 Upgrade): 3 weeks per asset
+    \item \textbf{High Effort} (Replacing ECDSA/EdDSA with ML-DSA FIPS 204 or ML-KEM FIPS 203): 8 weeks per asset
+\end{itemize}
+
+\newpage
+
+\section{API Call Architecture \& Inter-Module Data Flow Between Python (.py) Files}
+
+The \texttt{pgcrypto} scanner architecture connects Python modules via explicit API calls and internal data contracts:
+
+\begin{enumerate}
+    \item \textbf{CLI to Ingestion API} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{scanner/git\_cloner.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{RepoCloner.clone\_repo(github\_url, timeout=300)}
+        \item \textit{Action}: Invokes Git/GitHub HTTPS API via sub-process to execute \texttt{git clone --depth 1}. Returns local path to cloned workspace.
+    \end{itemize}
+    \item \textbf{Ingestion to Detection API} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{scanner/repo\_detector.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{RepoDetector.detect(workspace\_dir)}
+        \item \textit{Action}: Inspects directory tree to auto-detect PostgreSQL configs, SQL migration scripts, or C++/Rust/Python codebases.
+    \end{itemize}
+    \item \textbf{Scanner Dispatch APIs} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{scanner/postgres\_scanner.py} \& \texttt{generic\_scanner.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{PostgresScanner.scan\_directory()} \& \texttt{GenericScanner.scan\_directory()}
+        \item \textit{Internal File I/O API}: Uses Python \texttt{open(filepath, "r", encoding="utf-8", errors="ignore")} line-by-line.
+        \item \textit{Rule Evaluation}: Matches line content against Regex rules imported from \texttt{rules/postgres/*.py} and \texttt{rules/generic/*.py}.
+        \item \textit{Return Contract}: Returns raw list of finding dicts containing \texttt{algorithmName}, \texttt{primitive}, \texttt{file}, \texttt{line\_number}, and \texttt{risk}.
+    \end{itemize}
+    \item \textbf{Deduplication \& Normalization API} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{scanner/merger.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{merge\_findings(pg\_findings, generic\_findings)} \& \texttt{deduplicate\_by\_algorithm()}
+        \item \textit{Action}: Combines findings and groups occurrences per unique algorithm family to prevent duplicate counting.
+    \end{itemize}
+    \item \textbf{Risk \& Scoring Evaluation APIs} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{scoring/weight_engine.py} \& \texttt{nist_compliance.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{compute\_readiness_score(findings)} \& \texttt{check\_nist\_compliance(findings)}
+        \item \textit{Action}: Evaluates Base Score, Bonuses, Penalties, and NIST FIPS 203/204 compliance. Returns structured score dictionary.
+    \end{itemize}
+    \item \textbf{Output Generator APIs} (\texttt{pgcrypto\_scanner.py} $\rightarrow$ \texttt{output/cbom_generator.py} \& \texttt{output/score_reporter.py}):
+    \begin{itemize}
+        \item \textit{Function Call}: \texttt{generate\_cbom(findings)} $\rightarrow$ \texttt{save\_cbom("cbom.json")}
+        \item \textit{Function Call}: \texttt{generate\_score\_report(score_dict)} $\rightarrow$ \texttt{save\_score\_report("readiness\_score.json")} \& \texttt{print\_terminal\_report()}
+        \item \textit{Dashboard Call}: Renders interactive HTML web dashboard into \texttt{dashboard/index.html}.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+
+\section{Codebase File Directory \& Responsibility Matrix}
+
+{\small
+\begin{tabularx}{\linewidth}{l l X}
+\toprule
+\textbf{Category} & \textbf{File Path} & \textbf{Main Responsibility \& Processing Logic} \\
+\midrule
+\textbf{CLI Entry Point} & \texttt{pgcrypto\_scanner.py} & Main entry CLI. Ingests user flags (\texttt{--github}, \texttt{--config}, \texttt{--sql}, \texttt{--host}), coordinates modules, and prints terminal reports. \\
+\textbf{Scanning Engine} & \texttt{scanner/git\_cloner.py} & Uses Git / GitHub HTTPS API to execute \texttt{git clone --depth 1}, cloning remote repos into temporary scratch workspace with auto-cleanup. \\
+\textbf{Scanning Engine} & \texttt{scanner/repo\_detector.py} & Inspects target directory structure to auto-detect PostgreSQL configs, SQL migration scripts, or general C++/Python codebases. \\
+\textbf{Scanning Engine} & \texttt{scanner/postgres\_scanner.py} & Reads \texttt{.conf}, \texttt{.sql}, \texttt{.crt}, and \texttt{.c} files line-by-line using Python \texttt{open()} API to detect pgcrypto and TLS security patterns. \\
+\textbf{Scanning Engine} & \texttt{scanner/generic\_scanner.py} & Reads application source code (\texttt{.py}, \texttt{.cpp}, \texttt{.h}, \texttt{.go}, \texttt{.c}) line-by-line using regex rules targeting classical crypto calls. \\
+\textbf{Scanning Engine} & \texttt{scanner/merger.py} & Merges, normalizes, and deduplicates raw findings from both scanners to prevent double-counting of cryptographic assets. \\
+\textbf{Rules Engine} & \texttt{rules/postgres/*.py} & Python rule definitions targeting \texttt{pgcrypto} functions (\texttt{pgp\_pub\_encrypt}, \texttt{digest}), TLS protocol limits, and MD5 password hashes. \\
+\textbf{Rules Engine} & \texttt{rules/generic/*.py} & Regex pattern rules targeting asymmetric (RSA/ECDSA/Ed25519), symmetric (AES/DES/RC4), hash (SHA-1/MD5), and PQC algorithms. \\
+\textbf{Scoring \& Risk} & \texttt{scoring/weight_engine.py} & Calculates PQC Readiness Score (0--100) using weighted base score, bonuses, critical penalties, and timeline estimates. \\
+\textbf{Scoring \& Risk} & \texttt{scoring/nist_compliance.py} & Evaluates findings against NIST standards (FIPS 203 ML-KEM, FIPS 204 ML-DSA, FIPS 205 SLH-DSA). \\
+\textbf{Output Generator} & \texttt{output/cbom_generator.py} & Converts scanned findings into a standard CycloneDX Cryptography Bill of Materials (\texttt{cbom.json}). \\
+\textbf{Output Generator} & \texttt{output/score_reporter.py} & Generates \texttt{readiness\_score.json}, prints terminal summaries, and builds the interactive HTML dashboard. \\
+\textbf{Dashboard} & \texttt{dashboard/index.html} & Interactive web interface to visually inspect scores, breakdowns, and migration roadmaps. \\
+\textbf{PDF Documentation} & \texttt{generate\_pdf\_report.py} & Helper script using \texttt{fpdf2} to build comprehensive PDF technical audit documentation. \\
+\bottomrule
+\end{tabularx}
+}
+
+\newpage
+
+\section{Step-by-Step Execution Pipeline (First Point to Last Point)}
+
+{\small
+\begin{tabularx}{\linewidth}{c l l X X}
+\toprule
+\textbf{Step} & \textbf{Execution Stage} & \textbf{Executing File} & \textbf{Input Data} & \textbf{Output Data / Next Action} \\
+\midrule
+\textbf{1} & Command-Line Parsing & \texttt{pgcrypto\_scanner.py} & User CLI argument: \texttt{--github .../trustwallet/wallet-core.git} & Validated arguments \& GitHub execution mode. \\
+\textbf{2} & Repository Retrieval & \texttt{scanner/git\_cloner.py} & GitHub Repository URL & Executes \texttt{git clone --depth 1} to fetch repository into scratch workspace. \\
+\textbf{3} & Target Auto-Detection & \texttt{scanner/repo\_detector.py} & Cloned wallet-core files & Detects generic C++/Rust/Python codebase with 189 config/header files. \\
+\textbf{4a} & PostgreSQL Analysis & \texttt{scanner/postgres_scanner.py} & \texttt{.conf}, \texttt{.sql}, \texttt{.crt} files & List of PG findings (0 findings for pure wallet core codebase). \\
+\textbf{4b} & Generic Code Analysis & \texttt{scanner/generic_scanner.py} & C++ / Rust / Header files (\texttt{.cpp}, \texttt{.h}, \texttt{.c}) & 1,952 raw findings (EdDSA, ECDSA, ECDH, SHA-256, DES, RC4, MD5). \\
+\textbf{5} & Findings Deduplication & \texttt{scanner/merger.py} & Raw findings from 4a \& 4b & Deduplicates to 20 unique cryptographic asset families. \\
+\textbf{6} & NIST Compliance Check & \texttt{scoring/nist_compliance.py} & Deduplicated findings & Maps assets to FIPS 203 / 204 / 205 compliance standards. \\
+\textbf{7} & Score Calculation & \texttt{scoring/weight_engine.py} & Deduplicated findings & Computes Final Readiness Score = 15/100 (Grade F), 18 Total Migration Weeks. \\
+\textbf{8} & CBOM Export & \texttt{output/cbom_generator.py} & Scored assets & Generates CycloneDX \texttt{cbom.json} file. \\
+\textbf{9} & Score Report Export & \texttt{output/score_reporter.py} & Score dictionary & Generates \texttt{readiness\_score.json} and renders \texttt{dashboard/index.html}. \\
+\textbf{10} & Terminal \& Cleanup & \texttt{pgcrypto\_scanner.py} & Final results & Prints terminal summary table and removes temporary clone folders. \\
+\bottomrule
+\end{tabularx}
+}
+
+\vspace{1.5em}
+
+\section{Web Citations \& Official References}
+
+\begin{enumerate}
+    \item \textbf{NIST Post-Quantum Cryptography Standardization Project}: \\
+    \url{https://csrc.nist.gov/projects/post-quantum-cryptography}
+    \item \textbf{NIST FIPS 203 - Module-Lattice-Based Key-Encapsulation Mechanism (ML-KEM)}: \\
+    \url{https://csrc.nist.gov/pubs/fips/203/final}
+    \item \textbf{NIST FIPS 204 - Module-Lattice-Based Digital Signature Algorithm (ML-DSA)}: \\
+    \url{https://csrc.nist.gov/pubs/fips/204/final}
+    \item \textbf{NIST SP 800-57 Part 1 Rev. 5 - Recommendation for Key Management}: \\
+    \url{https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final}
+    \item \textbf{CISA Post-Quantum Cryptography Initiative \& Migration Roadmap}: \\
+    \url{https://www.cisa.gov/quantum}
+    \item \textbf{PostgreSQL pgcrypto Module Official Documentation}: \\
+    \url{https://www.postgresql.org/docs/current/pgcrypto.html}
+\end{enumerate}
+
+\end{document}

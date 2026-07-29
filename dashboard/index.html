@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pgcrypto PQC Scanner - Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+               background: #0a0a0f; color: #e0e0e0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #00d4ff; margin-bottom: 20px; }
+        .score-ring { text-align: center; margin: 30px 0; }
+        .score-value { font-size: 72px; font-weight: bold; color: #00d4ff; }
+        .score-grade { font-size: 24px; color: #888; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px; margin-top: 20px; }
+        .card { background: #1a1a2e; border-radius: 12px; padding: 20px;
+                border: 1px solid #2a2a4a; }
+        .card h2 { color: #00d4ff; font-size: 18px; margin-bottom: 15px; }
+        .stat { display: flex; justify-content: space-between; padding: 8px 0;
+                border-bottom: 1px solid #2a2a4a; }
+        .stat-label { color: #888; }
+        .stat-value { font-weight: bold; }
+        .critical { color: #ff4444; }
+        .high { color: #ffaa00; }
+        .safe { color: #44ff44; }
+        .roadmap-item { background: #0d0d1a; padding: 12px; border-radius: 8px;
+                        margin: 8px 0; border-left: 4px solid #ff4444; }
+        .roadmap-item.p1 { border-left-color: #ffaa00; }
+        .roadmap-item.p2 { border-left-color: #ffdd00; }
+        .roadmap-item.p3 { border-left-color: #44ff44; }
+        .priority { font-size: 12px; padding: 2px 8px; border-radius: 4px;
+                    display: inline-block; margin-bottom: 8px; }
+        .priority.p0 { background: #ff444433; color: #ff4444; }
+        .priority.p1 { background: #ffaa0033; color: #ffaa00; }
+        .priority.p2 { background: #ffdd0033; color: #ffdd00; }
+        .priority.p3 { background: #44ff4433; color: #44ff44; }
+        #data-note { text-align: center; color: #666; margin-top: 20px; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>pgcrypto PQC Scanner</h1>
+        <div id="dashboard">Loading...</div>
+        <p id="data-note">Load cbom.json and readiness_score.json to see results</p>
+    </div>
+    <script>
+        async function loadData() {
+            try {
+                const scoreResp = await fetch('../readiness_score.json');
+                const score = await scoreResp.json();
+                renderDashboard(score);
+            } catch (e) {
+                document.getElementById('dashboard').innerHTML =
+                    '<p style="color:#ff4444">Could not load data. Run the scanner first.</p>';
+            }
+        }
+
+        function renderDashboard(data) {
+            document.getElementById('data-note').style.display = 'none';
+            var roadmapItems = (data.migration_roadmap || []).slice(0, 5).map(function(item) {
+                var pClass = (item.priority || '').split('-')[0].toLowerCase();
+                return '<div class="roadmap-item ' + pClass + '">' +
+                    '<span class="priority ' + pClass + '">' + item.priority + '</span>' +
+                    '<strong>' + item.algorithm + '</strong><br>' +
+                    '<small>Replace with: ' + item.replacement + '</small><br>' +
+                    '<small>Effort: ' + item.effort + ' | Files: ' + item.file_count + '</small>' +
+                    '</div>';
+            }).join('');
+
+            var html = '<div class="score-ring">' +
+                '<div class="score-value">' + data.score + '</div>' +
+                '<div class="score-grade">Grade: ' + data.grade + ' - ' + data.label + '</div>' +
+                '</div>' +
+                '<div class="grid">' +
+                '<div class="card"><h2>Summary</h2>' +
+                '<div class="stat"><span class="stat-label">Total Assets</span><span class="stat-value">' + data.total_assets + '</span></div>' +
+                '<div class="stat"><span class="stat-label">Occurrences</span><span class="stat-value">' + data.total_occurrences + '</span></div>' +
+                '<div class="stat"><span class="stat-label">Vulnerable</span><span class="stat-value critical">' + data.vulnerable_assets + '</span></div>' +
+                '<div class="stat"><span class="stat-label">Safe</span><span class="stat-value safe">' + data.safe_assets + '</span></div>' +
+                '<div class="stat"><span class="stat-label">Critical</span><span class="stat-value critical">' + data.critical_assets + '</span></div>' +
+                '<div class="stat"><span class="stat-label">PQC Found</span><span class="stat-value safe">' + data.pqc_assets + '</span></div>' +
+                '</div>' +
+                '<div class="card"><h2>Timeline</h2>' +
+                '<div class="stat"><span class="stat-label">Estimated</span><span class="stat-value">' + (data.timeline ? data.timeline.label : 'N/A') + '</span></div>' +
+                '<div class="stat"><span class="stat-label">Weeks</span><span class="stat-value">' + (data.timeline ? data.timeline.weeks : 0) + '</span></div>' +
+                '</div>' +
+                '<div class="card"><h2>Migration Roadmap</h2>' + roadmapItems + '</div>' +
+                '</div>';
+            document.getElementById('dashboard').innerHTML = html;
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
