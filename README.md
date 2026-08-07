@@ -252,6 +252,11 @@ python3 server.py --port 8000 --dir dashboard
 ```
 
 Navigate to `http://localhost:8000` to review summary metrics, risk distribution breakdowns, compliance matrices, and code remediation recommendations.
+<img width="1920" height="966" alt="Screenshot 2026-08-07 at 1 51 58 PM" src="https://github.com/user-attachments/assets/6a0c07c8-5e6b-445e-8fbd-173010471416" />.  
+<img width="1920" height="963" alt="Screenshot 2026-08-07 at 2 06 36 PM" src="https://github.com/user-attachments/assets/2b4b4538-aff1-427d-80e0-ebaa3417b138" />. 
+
+
+
 
 ---
 
