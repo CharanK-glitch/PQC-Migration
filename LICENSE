@@ -1,0 +1,39 @@
+BUSL-1.1 (Business Source License 1.1)
+=====================================
+
+Copyright (c) 2026 Charan Kasimahanti. All rights reserved.
+
+Licensor: Charan Kasimahanti
+
+1. LICENSE GRANT & RESTRICTIONS
+-------------------------------
+Subject to the terms and conditions herein, Licensor hereby grants to you a non-exclusive, 
+non-transferable, non-sublicensable license to view, inspect, compile, and run this 
+software solely for internal non-commercial testing, security audit evaluation, and 
+educational assessment purposes.
+
+YOU MAY NOT:
+  a. Copy, reproduce, modify, adapt, translate, or create derivative works of this software.
+  b. Distribute, publish, host, sublicense, lease, sell, assign, or transfer this software or any portion thereof.
+  c. Use this software in any commercial production environment, managed service offering, SaaS product, or for commercial consulting services without explicit written permission from the Licensor.
+  d. Remove, alter, or obscure any copyright notice, trademark, or proprietary rights notice in this software.
+
+2. PROPRIETARY RIGHTS
+---------------------
+All title, ownership rights, and intellectual property rights in and to the software 
+remain exclusively with the Licensor.
+
+3. CHANGE DATE & LICENSING TERMS
+--------------------------------
+Any commercial usage, proprietary integration, or licensing inquiries require an explicit 
+written commercial license agreement from the Licensor. Contact the copyright holder for 
+commercial licensing options.
+
+4. NO WARRANTY & LIMITATION OF LIABILITY
+---------------------------------------
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR 
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+DEALINGS IN THE SOFTWARE.

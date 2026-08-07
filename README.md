@@ -4,7 +4,7 @@
 [![PostgreSQL Support](https://img.shields.io/badge/PostgreSQL-12--17-336791.svg?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![NIST FIPS Compliance](https://img.shields.io/badge/NIST-FIPS_203_|_204_|_205-green.svg?style=flat-square)](https://csrc.nist.gov/)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
+[![License: BUSL-1.1](https://img.shields.io/badge/License-BUSL--1.1-red.svg?style=flat-square)](LICENSE)
 
 The **pgcrypto PQC Scanner** is an enterprise post-quantum cryptography (PQC) auditing engine for PostgreSQL infrastructure, `pgcrypto` SQL usage, server configurations, network parameters, C-extensions, and application migration scripts. It assists database administrators, security teams, and compliance officers in evaluating quantum vulnerability profiles and preparing migration roadmaps aligned with NIST PQC standards.
 
@@ -255,7 +255,13 @@ Navigate to `http://localhost:8000` to review summary metrics, risk distribution
 
 ---
 
-## License
+## License & Usage Restrictions
 
-This project is released under the terms of the [MIT License](LICENSE).
+Copyright (c) 2026 Charan Kasimahanti. All Rights Reserved.
+
+This repository is licensed under the **Business Source License 1.1 (BUSL-1.1)** / Proprietary terms:
+- **Permitted**: Non-commercial internal testing, security code inspection, and evaluation.
+- **Prohibited**: Copying, distribution, hosting as a commercial service/SaaS, selling, sublicensing, or creating commercial derivative works without explicit written permission from the copyright owner.
+
+Refer to the full [LICENSE](LICENSE) file for complete legal terms.
 
