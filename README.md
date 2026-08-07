@@ -1,277 +1,261 @@
-# 🛡️ pgcrypto PQC Scanner & Audit Suite
+# pgcrypto PQC Scanner & Audit Suite
 
-[![Post-Quantum Cryptography](https://img.shields.io/badge/Cryptography-Post--Quantum-blueviolet.svg?style=for-the-badge&logo=shield)](https://csrc.nist.gov/projects/post-quantum-cryptography)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-12_|_13_|_14_|_15_|_16_|_17-336791.style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![NIST FIPS Compliance](https://img.shields.io/badge/NIST-FIPS_203_|_204_|_205-green.svg?style=for-the-badge)](https://csrc.nist.gov/)
-[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-3776AB.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+[![Post-Quantum Cryptography](https://img.shields.io/badge/Cryptography-Post--Quantum-blueviolet.svg?style=flat-square)](https://csrc.nist.gov/projects/post-quantum-cryptography)
+[![PostgreSQL Support](https://img.shields.io/badge/PostgreSQL-12--17-336791.svg?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![NIST FIPS Compliance](https://img.shields.io/badge/NIST-FIPS_203_|_204_|_205-green.svg?style=flat-square)](https://csrc.nist.gov/)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-3776AB.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-> **Prepare your PostgreSQL databases for the Quantum Era.**  
-> `pgcrypto PQC Scanner` is an enterprise-grade post-quantum cryptography audit framework designed specifically for PostgreSQL environments, `pgcrypto` SQL usage, database configurations, connection parameters, C-extensions, and application SQL scripts.
-
----
-
-## 📑 Table of Contents
-
-- [⚡ Features](#-features)
-- [🌌 Why Post-Quantum Cryptography (PQC)?](#-why-post-quantum-cryptography-pqc)
-- [🏗️ System Architecture](#️-system-architecture)
-- [🚀 Quick Start](#-quick-start)
-- [💻 Command Line Reference](#-command-line-reference)
-- [📋 Scanning Modes](#-scanning-modes)
-- [📊 Output Artifacts & CBOM Standard](#-output-artifacts--cbom-standard)
-- [🏛️ NIST Compliance Matrix](#️-nist-compliance-matrix)
-- [📈 Quantum Readiness Score Calculation](#-quantum-readiness-score-calculation)
-- [📑 PDF & Report Generation](#-pdf--report-generation)
-- [🌐 Web Dashboard](#-web-dashboard)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
+The **pgcrypto PQC Scanner** is an enterprise post-quantum cryptography (PQC) auditing engine for PostgreSQL infrastructure, `pgcrypto` SQL usage, server configurations, network parameters, C-extensions, and application migration scripts. It assists database administrators, security teams, and compliance officers in evaluating quantum vulnerability profiles and preparing migration roadmaps aligned with NIST PQC standards.
 
 ---
 
-## ⚡ Features
+## Table of Contents
 
-- 🔍 **Deep AST & Regex Pattern Matching**: Scans SQL migrations, stored procedures, `pgcrypto` calls (`digest`, `hmac`, `pgp_sym_encrypt`, `encrypt_iv`), TLS config, and C extension code.
-- 📦 **Cryptographic Bill of Materials (CBOM)**: Export findings to standardized JSON CBOM format for software supply chain security.
-- 📐 **NIST PQC Standards Mapping**: Maps identified legacy algorithms (RSA, ECC, AES-128, SHA-1, MD5) directly to modern NIST PQC replacements (**ML-KEM/FIPS 203**, **ML-DSA/FIPS 204**, **SLH-DSA/FIPS 205**).
-- 🏆 **Quantum Readiness Scoring**: Calculates a dynamic readiness score (0 - 100) based on severity weights, algorithm risks, and exposure surfaces.
-- 🖥️ **Interactive Web Dashboard**: Beautiful local web UI for inspecting findings, algorithm breakdown, NIST compliance metrics, and interactive remediation guidance.
-- 📄 **Automated PDF Executive Audit Reports**: Generates publication-ready PDF audit reports and presentation slides automatically.
-- 🐙 **Multi-Target Auditing**: Supports scanning local directories, raw SQL files, live PostgreSQL instances, or remote GitHub repositories.
+- [Overview](#overview)
+- [Key Capabilities](#key-capabilities)
+- [Post-Quantum Risk Context](#post-quantum-risk-context)
+- [Architecture](#architecture)
+- [Quick Start](#quick-start)
+- [Command-Line Reference](#command-line-reference)
+- [Audit Modes](#audit-modes)
+- [CBOM Standard & Output Artifacts](#cbom-standard--output-artifacts)
+- [NIST Compliance Framework Mapping](#nist-compliance-framework-mapping)
+- [Quantum Readiness Scoring Model](#quantum-readiness-scoring-model)
+- [Reporting Tools & Executive Exports](#reporting-tools--executive-exports)
+- [Web Dashboard](#web-dashboard)
+- [License](#license)
 
 ---
 
-## 🌌 Why Post-Quantum Cryptography (PQC)?
+## Overview
 
-Quantum computers leveraging **Shor's Algorithm** will render traditional asymmetric cryptography (RSA, ECC, ECDSA, Diffie-Hellman) obsolete, breaking standard database encryption, digital signatures, and key exchanges. Furthermore, **Grover's Algorithm** reduces the effective key strength of symmetric ciphers (AES-128) and hash functions (SHA-256) by half.
+Modern database deployments rely heavily on legacy public-key cryptography (RSA, ECC, Diffie-Hellman) and legacy symmetric primitive configurations. As quantum processing capabilities advance, these algorithms face fundamental security degradation.
+
+The `pgcrypto PQC Scanner` performs automated static analysis across database schemas, SQL migrations, configuration files, and live instances to identify quantum-vulnerable cryptographic implementations, produce standard Cryptographic Bill of Materials (CBOM) inventories, and calculate deterministic readiness scores.
+
+---
+
+## Key Capabilities
+
+- **Multi-Layer Analysis**: Scans SQL scripts, stored procedures, `pgcrypto` calls (`digest`, `hmac`, `pgp_sym_encrypt`, `encrypt_iv`), server settings (`postgresql.conf`, `pg_hba.conf`), TLS suites, and native extension source code.
+- **CBOM Generation**: Generates structured JSON Cryptographic Bill of Materials (CBOM) artifacts compliant with supply chain security practices.
+- **NIST Standard Mapping**: Maps findings to NIST FIPS PQC standards (**FIPS 203 ML-KEM**, **FIPS 204 ML-DSA**, and **FIPS 205 SLH-DSA**).
+- **Quantitative Readiness Scoring**: Evaluates risk density, primitive usage, and exposure surfaces to generate a normalized 0–100 Readiness Index.
+- **Local Web Visualization**: Serves a lightweight web interface for detailed findings navigation, algorithm distribution analysis, and remediation planning.
+- **Automated Report Generation**: Supports automated LaTeX rendering to produce executive audit PDFs and technical presentation briefs.
+
+---
+
+## Post-Quantum Risk Context
+
+Advances in quantum computing impact current cryptographic primitives through two principal theoretical mechanisms:
+
+1. **Shor's Algorithm**: Solves prime factorization and discrete logarithm problems in polynomial time, compromising public-key schemes such as RSA, DSA, ECDSA, and ECDH.
+2. **Grover's Algorithm**: Accelerates brute-force search against symmetric ciphers and hash functions, effectively halving key security (e.g., AES-128 offers 64 bits of quantum security).
+
+| Legacy Cryptographic Primitive | Primary Risk Vector | Target PQC Standard |
+| :--- | :--- | :--- |
+| **RSA-2048 / RSA-4096** | Asymmetric Key Exchange & Signatures | NIST FIPS 203 (ML-KEM) / FIPS 204 (ML-DSA) |
+| **ECC / ECDSA / ECDH** | Asymmetric Key Exchange & Signatures | NIST FIPS 203 (ML-KEM) / FIPS 204 (ML-DSA) |
+| **AES-128 / Blowfish** | Reduced Symmetric Key Margin | AES-256-GCM / NIST SP 800-38D |
+| **SHA-1 / MD5** | Collision Degradation | SHA-3 / SHAKE-256 (FIPS 202) |
+
+---
+
+## Architecture
 
 ```
-       LEGACY CRYPTOGRAPHY                          PQC STANDARDS (NIST)
-┌─────────────────────────────────┐           ┌─────────────────────────────────┐
-│ RSA-2048 / 4096 (Asymmetric)    │  ────►    │ ML-KEM / FIPS 203 (Kyber)       │
-│ ECC / ECDSA (Signatures)        │  ────►    │ ML-DSA / FIPS 204 (Dilithium)   │
-│ Hash-based Signatures           │  ────►    │ SLH-DSA / FIPS 205 (SPHINCS+)   │
-│ AES-128 (Symmetric)             │  ────►    │ AES-256 / AES-256-GCM           │
-└─────────────────────────────────┘           └─────────────────────────────────┘
+                                ┌─────────────────────────┐
+                                │      Scan Targets       │
+                                │ (Config / SQL / GitHub) │
+                                └────────────┬────────────┘
+                                             │
+                                             ▼
+                                ┌─────────────────────────┐
+                                │     Scanner Engine      │
+                                └────────────┬────────────┘
+                                             │
+                       ┌─────────────────────┴─────────────────────┐
+                       ▼                                           ▼
+          ┌─────────────────────────┐                 ┌─────────────────────────┐
+          │     PostgresScanner     │                 │     GenericScanner      │
+          └────────────┬────────────┘                 └────────────┬────────────┘
+                       │                                           │
+                       └─────────────────────┬─────────────────────┘
+                                             │
+                                             ▼
+                                ┌─────────────────────────┐
+                                │ AST & Pattern Normalizer│
+                                └────────────┬────────────┘
+                                             │
+                       ┌─────────────────────┴─────────────────────┐
+                       ▼                                           ▼
+          ┌─────────────────────────┐                 ┌─────────────────────────┐
+          │ Weight Scoring Engine   │                 │ NIST Compliance Engine  │
+          └────────────┬────────────┘                 └────────────┬────────────┘
+                       │                                           │
+                       └─────────────────────┬─────────────────────┘
+                                             │
+                                             ▼
+                                ┌─────────────────────────┐
+                                │     CBOM Generator      │
+                                └────────────┬────────────┘
+                                             │
+                ┌────────────────────────────┼────────────────────────────┐
+                ▼                            ▼                            ▼
+     ┌───────────────────┐        ┌───────────────────┐        ┌───────────────────┐
+     │     cbom.json     │        │ readiness_score   │        │   Web Dashboard   │
+     └───────────────────┘        └───────────────────┘        └───────────────────┘
 ```
-
-The `pgcrypto PQC Scanner` helps database administrators, security teams, and compliance officers detect legacy cryptographic dependencies before quantum adversaries intercept and decrypt sensitive store-now-decrypt-later data.
 
 ---
 
-## 🏗️ System Architecture
-
-```mermaid
-flowchart TD
-    A[Scan Targets: Config / GitHub / SQL / Live DB] --> B[Scanner Engine]
-    B --> C[PostgresScanner]
-    B --> D[GenericScanner]
-    C --> E[AST & Pattern Merger]
-    D --> E
-    E --> F[Weight & Scoring Engine]
-    E --> G[NIST Compliance Engine]
-    F --> H[CBOM Generator]
-    G --> H
-    H --> I[Output Artifacts]
-    I --> J[cbom.json]
-    I --> K[readiness_score.json]
-    I --> L[PDF Audit Report]
-    I --> M[Interactive Dashboard UI]
-```
-
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- **Python**: Version `3.8+`
-- **PostgreSQL Client (Optional)**: `psycopg2` (only required for live database scanning)
-- **LaTeX (Optional)**: `pdflatex` (only required for PDF audit report compilation)
+- **Python**: Version `3.8` or higher
+- **PostgreSQL Client Library (Optional)**: `psycopg2` (required only for live database host connections)
+- **LaTeX Distribution (Optional)**: `pdflatex` (required only for PDF report compilation)
 
-### Installation
+### Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/user/pgcrypto_scanner.git
-cd pgcrypto_scanner
+git clone https://github.com/CharanK-glitch/PQC-Migration.git
+cd PQC-Migration
 
-# (Optional) Create virtual environment
+# Create virtual environment (recommended)
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
-# Install dependencies (if using live host scanning)
+# Install optional live database dependencies
 pip install psycopg2-binary
 ```
 
 ---
 
-## 💻 Command Line Reference
+## Command-Line Reference
 
 ```bash
-python3 pgcrypto_scanner.py [INPUT MODES] [OPTIONS]
+python3 pgcrypto_scanner.py [TARGET_OPTIONS] [EXECUTION_FLAGS]
 ```
 
 ### Options Overview
 
-| Flag | Long Flag | Description | Default |
+| Parameter | Type | Description | Default |
 | :--- | :--- | :--- | :--- |
-| `-c` | `--config` | Path to local PostgreSQL config directory | `None` |
-| `-g` | `--github` | Remote GitHub repository URL to clone & scan | `None` |
-| `-s` | `--sql` | Directory containing SQL scripts / migrations | `None` |
-| | `--host` | PostgreSQL host for live database scan | `None` |
-| `-p` | `--port` | PostgreSQL port | `5432` |
-| `-u` | `--user` | PostgreSQL user | `postgres` |
-| `-n` | `--name` | Custom project name | Directory/Repo Name |
-| `-o` | `--output` | Output directory for report artifacts | Current Directory |
-| | `--no-dashboard` | Disable automated web dashboard launch | `False` |
-| | `--json` | Output raw JSON data only | `False` |
-| `-v` | `--verbose` | Enable verbose debugging console logs | `False` |
+| `-c`, `--config` | Path | Directory path to PostgreSQL configuration files | `None` |
+| `-g`, `--github` | URL | Remote GitHub repository URL to clone and audit | `None` |
+| `-s`, `--sql` | Path | Directory containing SQL scripts and migration files | `None` |
+| `--host` | String | PostgreSQL hostname or IP for live schema inspection | `None` |
+| `-p`, `--port` | Integer | PostgreSQL service port | `5432` |
+| `-u`, `--user` | String | PostgreSQL database username | `postgres` |
+| `-n`, `--name` | String | Project descriptor label | Target Directory / Repo |
+| `-o`, `--output` | Path | Output directory for audit artifacts | `./output` |
+| `--no-dashboard` | Flag | Suppress visual dashboard output generation | `False` |
+| `--json` | Flag | Restrict output to machine-readable JSON format | `False` |
+| `-v`, `--verbose` | Flag | Enable detailed execution logging | `False` |
 
 ---
 
-## 📋 Scanning Modes
+## Audit Modes
 
 ### 1. Local Configuration Directory Scan
-Scan PostgreSQL server configuration files (e.g., `postgresql.conf`, `pg_hba.conf`, SSL certificates):
+Analyzes database configuration settings, TLS context, and authentication parameters:
 ```bash
-python3 pgcrypto_scanner.py --config /etc/postgresql/16/main/ --name "ProdDBServer"
+python3 pgcrypto_scanner.py --config /etc/postgresql/16/main/ --name "ProductionCluster"
 ```
 
-### 2. GitHub Repository Audit
-Automatically clone and scan application repositories containing SQL migrations or `pgcrypto` usage:
+### 2. Remote Repository Audit
+Clones and evaluates SQL scripts, application code, and deployment manifests from source control:
 ```bash
-python3 pgcrypto_scanner.py --github https://github.com/example/backend-service --name "BackendService"
+python3 pgcrypto_scanner.py --github https://github.com/organization/database-repo --name "AppRepository"
 ```
 
-### 3. SQL Migrations & Stored Procedures
-Scan a specific folder containing SQL migration scripts:
+### 3. Static SQL File Scan
+Inspects migration folders, schema files, and stored procedures:
 ```bash
-python3 pgcrypto_scanner.py --sql ./migrations/ --name "AppMigrations"
-```
-
-### 4. Hybrid / Live PostgreSQL Scanning
-Combine local config scanning with live database schema inspection:
-```bash
-python3 pgcrypto_scanner.py --config /etc/postgresql/16/main/ --host localhost --user postgres --name "FullDatabaseAudit"
+python3 pgcrypto_scanner.py --sql ./database/migrations/ --name "MigrationAudit"
 ```
 
 ---
 
-## 📊 Output Artifacts & CBOM Standard
+## CBOM Standard & Output Artifacts
 
-Scanning produces machine-readable and human-readable output files:
+Running an audit generates structured findings in the designated output directory:
 
-1. **`cbom.json`**: Standardized Cryptographic Bill of Materials listing all detected cryptographic assets, file paths, line numbers, algorithm names, key sizes, and PQC risk metrics.
-2. **`readiness_score.json`**: Detailed score summary including compliance percentages, risk weights, and algorithm counts.
-3. **`dashboard/`**: Complete HTML/JS web dashboard for interactive analysis.
-
-### Sample `cbom.json` Structure
-
-```json
-{
-  "cbom_version": "1.0",
-  "project_name": "PostgreSQL Audit",
-  "timestamp": "2026-07-29T19:30:00",
-  "summary": {
-    "total_assets": 12,
-    "quantum_vulnerable": 8,
-    "pqc_ready": 4
-  },
-  "components": [
-    {
-      "name": "pgcrypto_bf_hash",
-      "type": "cryptographic-hash",
-      "algorithm": "BF",
-      "location": "schema.sql:L42",
-      "pqc_risk": "HIGH",
-      "recommended_replacement": "Argon2id / ML-KEM"
-    }
-  ]
-}
-```
+- **`cbom.json`**: Standardized Cryptographic Bill of Materials containing asset metadata, file locations, primitive classifications, and vulnerability designations.
+- **`readiness_score.json`**: Score evaluation summary detailing overall rating, algorithm counts, compliance statuses, and penalty distributions.
+- **`dashboard/`**: Static HTML/CSS/JS asset bundle for local dashboard inspection.
 
 ---
 
-## 🏛️ NIST Compliance Matrix
+## NIST Compliance Framework Mapping
 
-The scanner benchmarks your cryptographic footprint against modern **NIST Post-Quantum Cryptography Standards**:
+Findings are benchmarked against formal PQC specifications published by NIST:
 
-| Legacy Cryptography | Vulnerability Type | NIST PQC Replacement | NIST Standard | Compliance Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **RSA / DSA** | Shor's Algorithm (Factorization) | **ML-DSA** (Dilithium) / **SLH-DSA** (SPHINCS+) | FIPS 204 / FIPS 205 | ❌ Non-Compliant |
-| **ECC / ECDSA** | Shor's Algorithm (Discrete Log) | **ML-DSA** / **FN-DSA** (Falcon) | FIPS 204 | ❌ Non-Compliant |
-| **ECDH / DH** | Shor's Algorithm (Key Exchange) | **ML-KEM** (Kyber) | FIPS 203 | ❌ Non-Compliant |
-| **AES-128 / Blowfish** | Grover's Algorithm (Effective 64-bit) | **AES-256-GCM** / **AES-256** | NIST SP 800-38D | ⚠️ Warning |
-| **SHA-1 / MD5** | Collision Attacks & Quantum Decay | **SHA-3** / **SHAKE-256** | FIPS 202 | ❌ Non-Compliant |
+| Target Primitive | NIST Specification | Modern Standard | Assessment Status |
+| :--- | :--- | :--- | :--- |
+| Key Encapsulation (KEM) | NIST SP 800-203 | **ML-KEM** (FIPS 203) | Non-Compliant if Legacy |
+| Digital Signatures (DSA) | NIST SP 800-204 | **ML-DSA** (FIPS 204) | Non-Compliant if Legacy |
+| Stateless Hash Signatures | NIST SP 800-205 | **SLH-DSA** (FIPS 205) | Non-Compliant if Legacy |
+| Symmetric Encryption | NIST SP 800-38D | **AES-256-GCM** | Advisory Warning if < 256 bits |
 
 ---
 
-## 📈 Quantum Readiness Score Calculation
+## Quantum Readiness Scoring Model
 
-The **Quantum Readiness Score** ($S$) ranges from **0** (Critically Vulnerable) to **100** (Quantum Safe).
+The **Quantum Readiness Score** ($S$) is calculated as a normalized metric from **0** to **100**:
 
 $$S = 100 - \min\left(100, \sum_{i=1}^{N} W(A_i) \times C(A_i)\right)$$
 
 Where:
-- $W(A_i)$ is the severity risk weight assigned to algorithm $A_i$:
+- $W(A_i)$ represents the risk weight assigned to algorithm $A_i$:
   - **Critical Risk (30 pts)**: RSA, ECC, ECDSA, Diffie-Hellman
   - **High Risk (20 pts)**: MD5, SHA-1, Blowfish, DES
-  - **Medium Risk (10 pts)**: AES-128, SHA-256 (Key Exchange context)
+  - **Medium Risk (10 pts)**: AES-128, SHA-256 (in key derivation contexts)
   - **Quantum Safe (0 pts)**: AES-256, SHA-3, ML-KEM, ML-DSA
-- $C(A_i)$ is the frequency count of findings for algorithm $A_i$.
+- $C(A_i)$ represents the occurrence frequency of algorithm $A_i$.
 
 ---
 
-## 📑 PDF & Report Generation
+## Reporting Tools & Executive Exports
 
-Generate publication-ready PDF reports and presentation slides directly from scan results using the built-in generator scripts:
+The framework includes dedicated utilities for producing executive-ready documentation:
 
 ```bash
-# Generate LaTeX & compile PDF Audit Report
+# Compile LaTeX technical audit report
 python3 generate_pdf_report.py
 
-# Generate PDF Executive Presentation Script
+# Generate executive presentation brief
 python3 generate_script_pdf.py
 
-# Generate User Guide PDF
+# Generate scanner operational guide
 python3 generate_guide.py
 ```
 
-Generated files:
-- 📄 `pqc_audit_report.pdf`: Full technical audit report.
-- 📊 `presentation_script.pdf`: Executive briefing slides.
-- 📘 `pgcrypto_scanner_guide.pdf`: Complete user manual.
+Generated outputs:
+- `pqc_audit_report.pdf`
+- `presentation_script.pdf`
+- `pgcrypto_scanner_guide.pdf`
 
 ---
 
-## 🌐 Web Dashboard
+## Web Dashboard
 
-Unless `--no-dashboard` or `--json` is specified, scanning automatically generates a standalone interactive Web Dashboard in the `dashboard/` directory.
+The framework provides an optional HTTP server interface to visually inspect audit results:
 
-To serve or view the dashboard manually:
 ```bash
-python3 -m http.server 8000 --directory dashboard
+python3 server.py --port 8000 --dir dashboard
 ```
-Open your browser at `http://localhost:8000` to inspect:
-- 📉 Dynamic score breakdown charts
-- 📌 Risk level filtering (Critical, High, Medium, Low)
-- 💡 Direct code snippet locations & remediation hints
+
+Navigate to `http://localhost:8000` to review summary metrics, risk distribution breakdowns, compliance matrices, and code remediation recommendations.
 
 ---
 
-## 🤝 Contributing
+## License
 
-Contributions are welcome! To contribute:
+This project is released under the terms of the [MIT License](LICENSE).
 
-1. Fork the Repository
-2. Create a Feature Branch (`git checkout -b feature/pqc-rule-update`)
-3. Commit your Changes (`git commit -m 'Add new PQC AST rule for pgcrypto'`)
-4. Push to the Branch (`git push origin feature/pqc-rule-update`)
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
