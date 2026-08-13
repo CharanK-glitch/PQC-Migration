@@ -107,7 +107,7 @@ app.add_middleware(
 app.mount("/static", StaticFiles(directory=str(DASHBOARD_DIR)), name="static")
 
 # ── Dashboard ─────────────────────────────────────────────────────────────────
-@app.get("/", response_class=HTMLResponse)
+@app.api_route("/", methods=["GET", "HEAD"], response_class=HTMLResponse)
 async def root():
     return HTMLResponse(content=(DASHBOARD_DIR / "index.html").read_text(encoding="utf-8"))
 
