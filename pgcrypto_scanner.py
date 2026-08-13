@@ -416,13 +416,14 @@ def _generate_dashboard(output_dir: str, cbom_path: str, score_path: str):
 
     # Also create a simple index.html that loads the data
     index_html = os.path.join(dashboard_dir, "index.html")
-    if not os.path.exists(index_html):
-        _create_simple_dashboard(dashboard_dir, cbom_path, score_path)
+    _create_simple_dashboard(dashboard_dir, cbom_path, score_path)
 
 
 def _create_simple_dashboard(dashboard_dir: str, cbom_path: str, score_path: str):
-    """Create a simple HTML dashboard."""
+    """Create a simple HTML dashboard if index.html does not exist."""
     index_html = os.path.join(dashboard_dir, "index.html")
+    if os.path.exists(index_html):
+        return
     html = """<!DOCTYPE html>
 <html lang="en">
 <head>
