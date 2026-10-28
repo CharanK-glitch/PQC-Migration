@@ -1,5 +1,17 @@
 [
   {
+    "id": "scan_20261028_122503_20d5d4",
+    "timestamp": "2026-10-28T12:25:03.778312+00:00",
+    "target": "https://github.com/wolfSSL/wolfssl.git",
+    "mode": "github",
+    "project_name": "wolfssl",
+    "status": "completed",
+    "completed_at": "2026-10-28T12:28:04.206983+00:00",
+    "score": 65,
+    "grade": "C",
+    "findings": 34195
+  },
+  {
     "id": "multi_20261009_200845_2de67e",
     "timestamp": "2026-10-09T20:08:45.734580+00:00",
     "target": "multi:2 repos",

@@ -1,15 +1,15 @@
 {
-  "url": "https://cloudflare.com/",
-  "timestamp": "2026-10-09T20:09:15.587612+00:00",
+  "url": "https://github.com/wolfSSL/wolfssl.git",
+  "timestamp": "2026-10-28T12:24:36.899448+00:00",
   "tls": {
     "version": "TLSv1.3",
-    "cipher": "TLS_AES_256_GCM_SHA384",
+    "cipher": "TLS_AES_128_GCM_SHA256",
     "protocol": "TLSv1.3",
-    "bits": 256,
-    "subject": "cloudflare.com",
-    "issuer": "Google Trust Services",
-    "not_before": "Sep  5 22:29:39 2026 GMT",
-    "not_after": "Dec  4 23:29:33 2026 GMT",
+    "bits": 128,
+    "subject": "github.com",
+    "issuer": "Sectigo Limited",
+    "not_before": "Sep  1 00:00:00 2026 GMT",
+    "not_after": "Nov 29 23:59:59 2026 GMT",
     "cert_type": "RSA",
     "version_rating": "excellent",
     "score": 25,
@@ -17,44 +17,37 @@
   },
   "headers": {
     "raw": {
-      "date": "Fri, 09 Oct 2026 20:09:15 GMT",
+      "date": "Wed, 28 Oct 2026 12:24:37 GMT",
       "content-type": "text/html; charset=utf-8",
-      "connection": "close",
-      "link": "<https://www.cloudflare.com/.well-known/api-catalog>; rel=\"api-catalog\", <https://www.cloudflare.com/.well-known/agents.json>; rel=\"service-desc\", <https://www.cloudflare.com/.well-known/webmcp.json>; rel=\"service-desc\", <https://www.cloudflare.com/openapi.json>; rel=\"service-desc\", <https://www.cloudflare.com/llms.txt>; rel=\"service-doc\", <https://www.cloudflare.com/sitemap.xml>; rel=\"sitemap\", </fonts/Kunst%20Grotesk%20Regular.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, </fonts/Kunst%20Grotesk%20Medium.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, <https://ot.www.cloudflare.com>; rel=preconnect; crossorigin, <https://imagedelivery.net>; rel=preconnect; crossorigin, </static/hero-poster.avif>; rel=preload; as=image; type=\"image/avif\"; fetchpriority=high",
-      "server-timing": "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=249",
-      "cache-control": "no-store",
-      "vary": "accept-encoding",
-      "strict-transport-security": "max-age=31536000; includeSubDomains",
-      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests",
-      "cross-origin-opener-policy": "unsafe-none",
-      "cross-origin-resource-policy": "cross-origin",
-      "permissions-policy": "geolocation=(), camera=(), microphone=()",
-      "referrer-policy": "strict-origin-when-cross-origin",
+      "vary": "X-PJAX, X-PJAX-Container, Turbo-Visit, Turbo-Frame, X-Requested-With, X-GitHub-Client-Version, Sec-Fetch-Site,Accept-Encoding, Accept, X-Requested-With",
+      "etag": "W/\"742c1b42ee90d4880c68f952fdc9c3ca\"",
+      "cache-control": "max-age=0, private, must-revalidate",
+      "strict-transport-security": "max-age=31536000; includeSubdomains; preload",
+      "x-frame-options": "deny",
       "x-content-type-options": "nosniff",
-      "x-frame-options": "SAMEORIGIN",
-      "x-served-by": "marketing-site",
-      "x-xss-protection": "1; mode=block",
-      "x-rm": "GW",
-      "set-cookie": "__cf_bm=wnfLVp46RKQkjjuFnaYDeg_qsUx7i0K53w1kiVvHx.U-1791576555.736016-1.0.1.1-dTxgu10r8MZquiKNMlNMDqUl5hnr1Gp8YKkyFe5I67VrSTDkXzTE_dpUZsqCrxsPTTDH5vJLKX7JcjBIiie61puGCocUh43vVic1lkCFY7I1YF9mUkLNHz_J.xOq75Ci1iP6EGYfL.vjpHFdMF_2Cw; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Fri, 09 Oct 2026 20:39:15 GMT",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pNIDlXC%2FBHZEZRTIvudeIfFPX5nWyIJt%2BEwZFjpSfdPDJI9jd7DZA9ZCBr8jqy5SPZHVP6ARXMyueHD%2BCMoj2yLubBcy6YVmHMGPamxtWP8MvE3IEIP0OABaXUYFUVujXJfeh7oISqjPheWdbhLbNA%3D%3D\"}]}",
-      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
-      "server": "cloudflare",
-      "cf-ray": "a48005a1580c7f91-MAA",
-      "alt-svc": "h3=\":443\"; ma=86400"
+      "x-xss-protection": "0",
+      "referrer-policy": "no-referrer-when-downgrade",
+      "content-security-policy": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net productionresultssa30.blob.core.windows.net productionresultssa31.blob.core.windows.net productionresultssa32.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com wss://production-copilot-host-centralus.webpubsub.azure.com wss://production-copilot-host-centralus-02.webpubsub.azure.com wss://production-copilot-host-westus.webpubsub.azure.com api.github.com/cmc_internal/api/; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com 'sha256-6AKuI+cDd1MoUL1u4eqrA9PXmnPAkOB4h7421hPUUm0='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
+      "server": "github.com",
+      "accept-ranges": "bytes",
+      "set-cookie": "logged_in=no; expires=Thu, 28 Oct 2027 12:24:37 GMT; domain=.github.com; path=/; HttpOnly; secure; SameSite=Lax",
+      "x-github-request-id": "5FD2:17BC7A:191FAAF:236C28C:6AE1E985",
+      "x-github-edge-region": "centralindia",
+      "connection": "close"
     },
     "strict-transport-security": {
       "present": true,
-      "value": "max-age=31536000; includeSubDomains",
+      "value": "max-age=31536000; includeSubdomains; preload",
       "name": "HSTS"
     },
     "content-security-policy": {
       "present": true,
-      "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests",
+      "value": "default-src 'none'; base-uri 'self'; child-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/; connect-src 'self' uploads.github.com www.githubstatus.com collector.github.com raw.githubusercontent.com api.github.com github-cloud.s3.amazonaws.com github-production-repository-file-5c1aeb.s3.amazonaws.com github-production-upload-manifest-file-7fdce7.s3.amazonaws.com github-production-user-asset-6210df.s3.amazonaws.com *.rel.tunnels.api.visualstudio.com wss://*.rel.tunnels.api.visualstudio.com github.githubassets.com objects-origin.githubusercontent.com copilot-proxy.githubusercontent.com proxy.individual.githubcopilot.com proxy.business.githubcopilot.com proxy.enterprise.githubcopilot.com *.actions.githubusercontent.com wss://*.actions.githubusercontent.com productionresultssa0.blob.core.windows.net productionresultssa1.blob.core.windows.net productionresultssa2.blob.core.windows.net productionresultssa3.blob.core.windows.net productionresultssa4.blob.core.windows.net productionresultssa5.blob.core.windows.net productionresultssa6.blob.core.windows.net productionresultssa7.blob.core.windows.net productionresultssa8.blob.core.windows.net productionresultssa9.blob.core.windows.net productionresultssa10.blob.core.windows.net productionresultssa11.blob.core.windows.net productionresultssa12.blob.core.windows.net productionresultssa13.blob.core.windows.net productionresultssa14.blob.core.windows.net productionresultssa15.blob.core.windows.net productionresultssa16.blob.core.windows.net productionresultssa17.blob.core.windows.net productionresultssa18.blob.core.windows.net productionresultssa19.blob.core.windows.net productionresultssa30.blob.core.windows.net productionresultssa31.blob.core.windows.net productionresultssa32.blob.core.windows.net github-production-repository-image-32fea6.s3.amazonaws.com github-production-release-asset-2e65be.s3.amazonaws.com insights.github.com wss://alive.github.com wss://alive-staging.github.com api.githubcopilot.com api.individual.githubcopilot.com api.business.githubcopilot.com api.enterprise.githubcopilot.com wss://production-copilot-host.webpubsub.azure.com wss://production-copilot-host-centralus.webpubsub.azure.com wss://production-copilot-host-centralus-02.webpubsub.azure.com wss://production-copilot-host-westus.webpubsub.azure.com api.github.com/cmc_internal/api/; font-src github.githubassets.com; form-action 'self' github.com gist.github.com copilot-workspace.githubnext.com objects-origin.githubusercontent.com; frame-ancestors 'none'; frame-src viewscreen.githubusercontent.com notebooks.githubusercontent.com; img-src 'self' data: blob: github.githubassets.com media.githubusercontent.com camo.githubusercontent.com identicons.github.com avatars.githubusercontent.com private-avatars.githubusercontent.com github-cloud.s3.amazonaws.com objects.githubusercontent.com release-assets.githubusercontent.com secured-user-images.githubusercontent.com user-images.githubusercontent.com private-user-images.githubusercontent.com opengraph.githubassets.com repository-images.githubusercontent.com marketplace-screenshots.githubusercontent.com copilotprodattachments.blob.core.windows.net/github-production-copilot-attachments/ github-production-user-asset-6210df.s3.amazonaws.com customer-stories-feed.github.com spotlights-feed.github.com explore-feed.github.com *.googleusercontent.com objects-origin.githubusercontent.com *.githubusercontent.com; manifest-src 'self'; media-src github.com user-images.githubusercontent.com secured-user-images.githubusercontent.com private-user-images.githubusercontent.com github-production-user-asset-6210df.s3.amazonaws.com gist.github.com github.githubassets.com; script-src github.githubassets.com 'sha256-6AKuI+cDd1MoUL1u4eqrA9PXmnPAkOB4h7421hPUUm0='; style-src 'unsafe-inline' github.githubassets.com; upgrade-insecure-requests; worker-src github.githubassets.com github.com/assets-cdn/worker/ github.com/assets/ gist.github.com/assets-cdn/worker/",
       "name": "CSP"
     },
     "x-frame-options": {
       "present": true,
-      "value": "SAMEORIGIN",
+      "value": "deny",
       "name": "X-Frame-Options"
     },
     "x-content-type-options": {
@@ -64,37 +57,58 @@
     },
     "referrer-policy": {
       "present": true,
-      "value": "strict-origin-when-cross-origin",
+      "value": "no-referrer-when-downgrade",
       "name": "Referrer-Policy"
     },
     "permissions-policy": {
-      "present": true,
-      "value": "geolocation=(), camera=(), microphone=()",
-      "name": "Permissions-Policy"
+      "present": false,
+      "name": "Permissions-Policy",
+      "description": "Feature permissions control"
     },
     "cross-origin-opener-policy": {
-      "present": true,
-      "value": "unsafe-none",
-      "name": "COOP"
+      "present": false,
+      "name": "COOP",
+      "description": "Cross-Origin Opener Policy"
     },
     "cross-origin-resource-policy": {
-      "present": true,
-      "value": "cross-origin",
-      "name": "CORP"
+      "present": false,
+      "name": "CORP",
+      "description": "Cross-Origin Resource Policy"
     },
-    "score": 44,
+    "score": 34,
     "max_score": 25,
-    "final_url": "https://www.cloudflare.com/"
+    "final_url": "https://github.com/wolfSSL/wolfssl"
   },
-  "crypto_libs": [],
+  "crypto_libs": [
+    {
+      "name": "node-forge",
+      "pattern": "forge",
+      "quantum_safe": false,
+      "risk": "medium"
+    },
+    {
+      "name": "argon2-browser",
+      "pattern": "argon2",
+      "quantum_safe": true,
+      "risk": "low"
+    },
+    {
+      "name": "elliptic.js",
+      "pattern": "elliptic",
+      "quantum_safe": false,
+      "risk": "high"
+    },
+    {
+      "name": "MD5.js",
+      "pattern": "md5",
+      "quantum_safe": false,
+      "risk": "critical"
+    }
+  ],
   "forms": [],
   "cookies": [
     {
-      "raw": "_ga=GA1.1.e5914283-04d4-485b-823a-e64041a2c3dc",
-      "flags": []
-    },
-    {
-      "raw": "cfz_google-analytics_v4={\"nzcr_ga4\":{\"v\":\"e5914283-04d4-485b-823a-e64041a2c3dc\",\"e\":1825790956653}}",
+      "raw": "_gh_sess=WtIek3igqswFOzXT2%2Bdi8MBuz%2Bl8pVQ%2BV44GZ6eYm5gDZ93lwgZZzE%2BVa0eyOhuoaMQxlwNZqXsjEI3FnFtzC87UHV1bmY35s2Ak6gDmtE9Q362npnFA%2FYYyXlIxAt3XJZT2lfRXT8c7qDLqv2oETrs9EsPYGUAj%2BTFbGbK9%2B2K%2F6Z2BLGuFzfVTCGgD68W5hGrEzsZmgTUn%2BzrI7T8W3g4m8mbpt4FeWFI70XIznq6uhUdGc2dryC1tnkZT1pa4Dh4GJ3Qa8pZYjBycsSwFqg%3D%3D--XrKqurV7ECX8c1wC--mW5u8VwohadpNe7145yqJA%3D%3D",
       "flags": [
         "Secure",
         "HttpOnly",
@@ -102,22 +116,14 @@
       ]
     },
     {
-      "raw": "cfz_adobe={\"MsVJ_ecid\":{\"v\":\"CiY3ODg4Njc0NTk1MjcwODg3MzQ4MjkwMDk0MTMyODU1NDUzODE2MVIOCIyKo5KSNCoDVkE2MALwAYyKo5KSNA==\",\"e\":1825704556884}}",
-      "flags": [
-        "Secure",
-        "HttpOnly",
-        "SameSite"
-      ]
-    },
-    {
-      "raw": "kndctr_8AD56F28618A50850A495FB6_AdobeOrg_identity=CiY3ODg4Njc0NTk1MjcwODg3MzQ4MjkwMDk0MTMyODU1NDUzODE2MVIOCIyKo5KSNCoDVkE2MALwAYyKo5KSNA==",
+      "raw": "_octo=GH1.1.2126570563.1793190278",
       "flags": [
         "Secure",
         "SameSite"
       ]
     },
     {
-      "raw": "__cf_bm=kxSay.QUBdUYG.upNsIdM6aQDpwWlvhb1KfrJyF4PSY-1791576556.6461387-1.0.1.1-g19p7Qzgr_236mV8vW17hPT6LPkPnecPN5dh0j93hWI7qTkjUcvttZ3MzW1l3IQWSAYGCFe8j_tnozzKHH9Rx5BzofvQsRAwiSZyb4YBZa0vPrNAbkHmKFZJJN4phnSiTBXZLjAKMvveWwPMPhI0FA",
+      "raw": "logged_in=no",
       "flags": [
         "Secure",
         "HttpOnly",
@@ -125,18 +131,22 @@
       ]
     }
   ],
-  "score": 100,
+  "score": 90,
   "grade": "A",
   "label": "PQC Ready",
   "recommendations": [
     "Enable Perfect Forward Secrecy with ECDHE key exchange",
+    "Add Permissions-Policy header: Feature permissions control",
+    "Add COOP header: Cross-Origin Opener Policy",
+    "Add CORP header: Cross-Origin Resource Policy",
+    "Replace node-forge with a quantum-resistant alternative",
+    "Replace elliptic.js with a quantum-resistant alternative",
+    "Replace MD5.js with a quantum-resistant alternative",
     "Eliminate mixed content (HTTP resources on HTTPS pages)",
-    "Set Secure flag on all cookies",
-    "Set HttpOnly flag on session cookies",
     "Set HttpOnly flag on session cookies"
   ],
   "content_score": 0,
   "content_max_score": 25,
-  "cookie_score": 29,
+  "cookie_score": 21,
   "cookie_max_score": 20
 }

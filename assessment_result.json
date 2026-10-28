@@ -1,31 +1,31 @@
 {
-  "score": 63,
-  "partial_score": 63,
+  "score": 71,
+  "partial_score": 71,
   "grade": "B",
   "label": "Partially Ready",
   "answered": 35,
   "total_questions": 35,
   "categories": {
     "Infrastructure": {
-      "score": 69.6,
+      "score": 70.6,
       "max_score": 100.0,
-      "percentage": 70
+      "percentage": 71
     },
     "Application Layer": {
-      "score": 66.3,
+      "score": 72.2,
       "max_score": 107.0,
-      "percentage": 62
+      "percentage": 67
     },
     "Data Protection": {
-      "score": 43.7,
+      "score": 58.8,
       "max_score": 78.0,
-      "percentage": 56
+      "percentage": 75
     },
     "Compliance & Governance": {
-      "score": 47.5,
+      "score": 54.9,
       "max_score": 74.0,
-      "percentage": 64
+      "percentage": 74
     }
   },
-  "timestamp": "2026-10-09T20:31:59.449163+00:00"
+  "timestamp": "2026-10-28T12:24:03.999521+00:00"
 }
