@@ -245,13 +245,37 @@ Generated outputs:
 
 ## Web Dashboard
 
-The framework provides an optional HTTP server interface to visually inspect audit results:
+Run the FastAPI dashboard server from the repository root:
 
 ```bash
-python3 server.py --port 8000 --dir dashboard
+python3 server.py
 ```
 
-Navigate to `http://localhost:8000` to review summary metrics, risk distribution breakdowns, compliance matrices, and code remediation recommendations.
+Open `http://127.0.0.1:8765` to review summary metrics, risk distribution breakdowns, compliance matrices, and code remediation recommendations.
+
+### Protected deployments
+
+When API-key protection is needed, set the key in the server process environment before starting the application:
+
+```bash
+export PQC_API_KEY='replace-with-a-long-random-secret'
+python3 server.py
+```
+
+The dashboard’s **API key** control stores the key only for the current browser session and sends it using the `X-API-Key` request header. It is never placed in a URL or saved in the dashboard source. If the server is not configured with `PQC_API_KEY`, no key is required. Use HTTPS through a trusted reverse proxy when sending keys over a network; do not expose this development server directly to the public internet.
+
+### Browser workflow tests
+
+Install the test dependency and Chromium, then run the isolated dashboard tests:
+
+```bash
+npm install
+npx playwright install chromium
+npm run test:e2e
+```
+
+The Playwright suite serves the real dashboard HTML but mocks API responses, so it checks client workflows without launching scans or changing scan history. It covers repository and website scans, multi-repository progress and validation, assessment, history deletion, score/finding evidence, API-key headers, keyboard tabs, theme persistence, and a narrow viewport.
+
 <img width="1920" height="966" alt="Screenshot 2026-08-07 at 1 51 58 PM" src="https://github.com/user-attachments/assets/6a0c07c8-5e6b-445e-8fbd-173010471416" />.  
 <img width="1920" height="963" alt="Screenshot 2026-08-07 at 2 06 36 PM" src="https://github.com/user-attachments/assets/2b4b4538-aff1-427d-80e0-ebaa3417b138" />. 
 

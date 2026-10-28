@@ -64,6 +64,7 @@ def compute_readiness_score(findings: List[Dict]) -> Dict:
         family = alg.get("algorithmFamily", "unknown")
         occ_count = algo_info["count"]
         source = algo_info.get("source", "generic")
+        language = algo_info.get("language", "unknown")
 
         ctx_w = CTX_WEIGHT.get(primitive, 0.5)
         asset_weight = ctx_w * occ_count
@@ -93,14 +94,18 @@ def compute_readiness_score(findings: List[Dict]) -> Dict:
             vulnerable_count += 1
             primitive_breakdown[primitive]["vulnerable"] += occ_count
             family_breakdown[family]["vulnerable"] += occ_count
+            language_breakdown[language]["vulnerable"] += occ_count
         else:
             primitive_breakdown[primitive]["safe"] += occ_count
             family_breakdown[family]["safe"] += occ_count
+            language_breakdown[language]["safe"] += occ_count
 
         primitive_breakdown[primitive]["total"] += occ_count
         primitive_breakdown[primitive]["weight"] += asset_weight
         if not is_vulnerable:
             primitive_breakdown[primitive]["safe_weight"] += asset_weight
+
+        language_breakdown[language]["total"] += occ_count
 
         source_breakdown[source]["total"] += occ_count
         if is_vulnerable:
@@ -182,6 +187,7 @@ def _aggregate_algorithms(findings: List[Dict]) -> Dict:
                 "priority": f.get("priority", "P4-Safe"),
                 "replacement": f.get("replacement", "See NIST SP 800-208"),
                 "category": f.get("category", "unknown"),
+                "language": f.get("language", "unknown"),
             }
 
         algo_map[key]["count"] += 1

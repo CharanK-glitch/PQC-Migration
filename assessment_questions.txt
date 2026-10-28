@@ -1,0 +1,208 @@
+PQC Readiness Assessment — 35 Questions (MCQ)
+
+=== INFRASTRUCTURE (10 questions) ===
+
+1. What TLS versions do you support?
+   A) TLS 1.3 only
+   B) TLS 1.2 and 1.3
+   C) TLS 1.0, 1.1, 1.2, 1.3
+   D) Below TLS 1.0
+
+2. What certificate types do you use?
+   A) ECDSA P-256/P-384
+   B) RSA 2048/3072
+   C) RSA 1024 or smaller
+   D) Self-signed certificates
+
+3. Do you use HSTS (HTTP Strict Transport Security)?
+   A) Yes, with includeSubDomains and preload
+   B) Yes, basic HSTS
+   C) No
+
+4. What cipher suites are enabled?
+   A) AEAD only (AES-GCM, ChaCha20-Poly1305)
+   B) AEAD + CBC with encrypt-then-MAC
+   C) CBC mode ciphers
+   D) RC4, DES, or 3DES
+
+5. Do you have Perfect Forward Secrecy?
+   A) Yes, ECDHE with X25519/P-256
+   B) Yes, DHE with 2048-bit+
+   C) No, static RSA key exchange
+
+6. What is your certificate validity period?
+   A) 90 days or less (ACME/automated)
+   B) 1 year
+   C) 2-3 years
+   D) More than 3 years
+
+7. Do you use Certificate Transparency?
+   A) Yes, SCTs embedded and monitored
+   B) Yes, SCTs embedded
+   C) No
+
+8. Do you use OCSP stapling?
+   A) Yes, with must-staple
+   B) Yes, OCSP stapling enabled
+   C) No
+
+9. How do you handle TLS inspection at the perimeter?
+   A) TLS 1.3 with PQC hybrid (X25519+ML-KEM)
+   B) TLS 1.3 with ECDHE
+   C) TLS 1.2 with RSA
+   D) No TLS inspection
+
+10. Do you implement certificate or key pinning?
+    A) Yes, HPKP or static pinning
+    B) Yes, for critical endpoints only
+    C) No
+
+=== APPLICATION LAYER (10 questions) ===
+
+11. What cryptographic libraries do you use?
+    A) Liboqs / OQS-OpenSSL with PQC
+    B) OpenSSL 3.x with provider model
+    C) BoringSSL or similar modern library
+    D) Legacy OpenSSL 1.0.x or custom crypto
+
+12. How do you handle key management?
+    A) HSM-backed with automated rotation
+    B) KMS (AWS/GCP/Azure) with rotation
+    C) Manual key management
+    D) Hardcoded keys in source
+
+13. What hash functions do you use for passwords?
+    A) Argon2id
+    B) bcrypt with appropriate cost
+    C) PBKDF2 with 100k+ iterations
+    D) MD5/SHA-1 (unsalted)
+
+14. Do you use symmetric or asymmetric encryption more?
+    A) Hybrid (asymmetric for key exchange, symmetric for data)
+    B) Mostly symmetric (AES-GCM)
+    C) Mostly asymmetric (RSA/ECC)
+    D) No encryption
+
+15. How often do you rotate keys?
+    A) Automated, every 90 days or less
+    B) Automated, annually
+    C) Manual, every 1-2 years
+    D) Never rotated
+
+16. What random number generator do you use?
+    A) CSPRNG (os.urandom, /dev/urandom, getrandom)
+    B) CSPRNG with proper seeding
+    C) Standard PRNG (rand(), Math.random)
+    D) Custom RNG
+
+17. Do you implement side-channel protections?
+    A) Constant-time implementations + blinding
+    B) Constant-time for critical operations
+    C) No specific protections
+
+18. Do you support cryptographic agility (algorithm negotiation)?
+    A) Full agility with versioned algorithms
+    B) Partial agility (TLS cipher suites)
+    C) No agility, hardcoded algorithms
+
+19. Do you use hardware security modules or secure enclaves?
+    A) HSM for all key operations
+    B) Secure enclave (SGX/TrustZone) for sensitive ops
+    C) TPM-backed key storage
+    D) Software-only key storage
+
+20. Do you scan dependencies for vulnerable crypto?
+    A) Automated in CI/CD with policy enforcement
+    B) Automated scanning, manual review
+    C) Manual review only
+    D) No scanning
+
+=== DATA PROTECTION (8 questions) ===
+
+21. How is data encrypted at rest?
+    A) AES-256-GCM with per-tenant keys
+    B) AES-256-CBC with HMAC
+    C) Database-level encryption (TDE)
+    D) No encryption at rest
+
+22. How is data encrypted in transit?
+    A) TLS 1.3 with PQC hybrid key exchange
+    B) TLS 1.3 with ECDHE
+    C) TLS 1.2 with RSA
+    D) No encryption in transit
+
+23. Do you use database-level encryption?
+    A) Column-level + TDE with separate key hierarchy
+    B) TDE only
+    C) Application-level encryption only
+    D) No database encryption
+
+24. How are backups encrypted?
+    A) AES-256 with keys stored in HSM/KMS
+    B) AES-256 with keys in separate KMS
+    C) Encrypted with shared password
+    D) Unencrypted backups
+
+25. Do you separate encryption keys by environment?
+    A) Full separation with distinct key hierarchies
+    B) Separate keys per environment
+    C) Shared keys across environments
+
+26. Do you classify data by sensitivity for crypto controls?
+    A) Full classification with tiered encryption
+    B) Partial classification
+    C) No classification
+
+27. Do you use tokenization for sensitive data?
+    A) Full tokenization with vault
+    B) Partial tokenization for PII
+    C) No tokenization
+
+28. Do you have crypto-aware data retention policies?
+    A) Automated crypto-shredding on expiry
+    B) Manual deletion with audit trail
+    C) No retention policy
+
+=== COMPLIANCE & GOVERNANCE (7 questions) ===
+
+29. Are you subject to any compliance requirements?
+    A) FIPS 140-3 / Common Criteria
+    B) PCI-DSS, HIPAA, or SOC 2
+    C) GDPR only
+    D) No compliance requirements
+
+30. Do you have a crypto inventory?
+    A) Automated CBOM with continuous updates
+    B) Manual inventory, updated quarterly
+    C) Partial inventory
+    D) No inventory
+
+31. How do you track cryptographic assets?
+    A) Automated scanning integrated in CI/CD
+    B) Automated scanning, manual review
+    C) Manual tracking in spreadsheets
+    D) No tracking
+
+32. Do you have a migration plan for PQC?
+    A) Detailed plan with timeline and milestones
+    B) High-level plan, not yet detailed
+    C) Aware of need, no plan yet
+    D) No awareness or plan
+
+33. Have you performed a quantum risk assessment?
+    A) Full assessment with harvest-now-decrypt-later analysis
+    B) Basic assessment completed
+    C) In progress
+    D) Not started
+
+34. Is your team trained on PQC migration?
+    A) Certified training + hands-on PQC implementation
+    B) Workshops and self-study
+    C) Awareness only
+    D) No training
+
+35. Do you assess vendors for PQC readiness?
+    A) Formal PQC readiness assessment for all vendors
+    B) Assessment for critical vendors only
+    C) Informal awareness
+    D) No vendor assessment

@@ -3,3 +3,14 @@ __pycache__/
 *.pyc
 .DS_Store
 scratch/
+node_modules/
+test-results/
+playwright-report/
+multi_scan_state.json
+.venv/
+venv/
+server.log
+uploads/
+output/multi_*/
+prompt.txt
+

@@ -90,7 +90,7 @@ def print_terminal_report(report: Dict, scan_target: str):
 
     # Score display
     score_color = _get_score_color(score)
-    print(f"\n  PQC READINESS SCORE: {score}/100 (Grade: {grade})")
+    print(f"\n  {score_color}PQC READINESS SCORE: {score}/100 (Grade: {grade})\033[0m")
     print(f"  Status: {label}")
 
     print("\n" + "-" * 64)

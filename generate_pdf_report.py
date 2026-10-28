@@ -1,13 +1,18 @@
 import json
 import os
+from pathlib import Path
 from fpdf import FPDF
 
 class CleanPDFReport(FPDF):
+    def __init__(self, target):
+        super().__init__(orientation='L', unit='mm', format='A4')
+        self.target = target
+
     def header(self):
         self.set_font("helvetica", "B", 12)
         self.cell(0, 7, "Post-Quantum Cryptography (PQC) Technical Audit & Architecture Report", align="C", new_x="LMARGIN", new_y="NEXT")
         self.set_font("helvetica", "I", 8.5)
-        self.cell(0, 4, "Target Audit: https://github.com/trustwallet/wallet-core.git", align="C", new_x="LMARGIN", new_y="NEXT")
+        self.multi_cell(0, 4, f"Target Audit: {self.target}", align="C")
         self.ln(3)
 
     def footer(self):
@@ -60,17 +65,28 @@ class CleanPDFReport(FPDF):
             self.set_xy(x_start, y_start + row_height)
         self.ln(3)
 
-def generate_pdf():
-    pdf = CleanPDFReport(orientation='L', unit='mm', format='A4')
+def generate_pdf(output_path="pqc_audit_report.pdf"):
+    score_path = Path(__file__).resolve().with_name("readiness_score.json")
+    try:
+        score = json.loads(score_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        score = {}
+    target = score.get("repo_url") or score.get("scan_target") or score.get("project_name") or "No scan results available"
+    scan_mode = score.get("scan_mode", "Unknown")
+    timeline = score.get("timeline") or {}
+
+    pdf = CleanPDFReport(str(target))
     pdf.set_auto_page_break(auto=True, margin=12)
     pdf.add_page()
 
     # Section 1: Executive Summary
     pdf.section_title("1. Executive Summary & Audit Context")
     pdf.body_text(
-        "Target Repository: https://github.com/trustwallet/wallet-core.git | Scan Mode: GitHub CLI / API Ingestion\n"
-        "Readiness Score: 15/100 (Grade F - PQC Non-Compliant) | Total Assets: 20 | Occurrences: 1,952 Code Locations\n"
-        "Vulnerable Assets: 10 | Safe Assets: 9 | Total Estimated Migration Timeline: 18 Weeks (Medium-term Initiative)"
+        f"Target Repository: {target} | Scan Mode: {scan_mode}\n"
+        f"Readiness Score: {score.get('score', 'N/A')}/100 (Grade {score.get('grade', 'N/A')} - {score.get('label', 'No scan data')})\n"
+        f"Total Assets: {score.get('total_assets', 'N/A')} | Occurrences: {score.get('total_occurrences', 'N/A')}\n"
+        f"Vulnerable Assets: {score.get('vulnerable_assets', 'N/A')} | Safe Assets: {score.get('safe_assets', 'N/A')} | "
+        f"Estimated Migration Timeline: {timeline.get('weeks', 'N/A')} Weeks ({timeline.get('label', 'Not available')})"
     )
 
     # Section 2: Mathematical Formulations, Abbreviations & Synthesis Origin
@@ -169,14 +185,14 @@ def generate_pdf():
     headers_t2 = ["Step", "Execution Stage", "Executing File", "Input Data", "Output Data / Next Action"]
     widths_t2 = [10, 42, 48, 70, 100]
     data_t2 = [
-        ["1", "Command-Line Parsing", "pgcrypto_scanner.py", "User CLI argument: --github https://github.com/trustwallet/wallet-core.git", "Validated arguments & GitHub execution mode."],
-        ["2", "Repository Retrieval", "scanner/git_cloner.py", "GitHub Repository URL", "Executes git clone --depth 1 to fetch repository into scratch workspace."],
-        ["3", "Target Auto-Detection", "scanner/repo_detector.py", "Cloned wallet-core files", "Detects generic C++/Rust/Python codebase with 189 config/header files."],
-        ["4a", "PostgreSQL Analysis", "scanner/postgres_scanner.py", ".conf, .sql, .crt files", "List of PG findings (0 findings for pure wallet core codebase)."],
-        ["4b", "Generic Code Analysis", "scanner/generic_scanner.py", "C++ / Rust / Header files (.cpp, .h, .c)", "1,952 raw findings (EdDSA, ECDSA, ECDH, SHA-256, DES, RC4, MD5)."],
-        ["5", "Findings Deduplication", "scanner/merger.py", "Raw findings from 4a & 4b", "Deduplicates to 20 unique cryptographic asset families."],
+        ["1", "Command-Line Parsing", "pgcrypto_scanner.py", f"Scan target: {target}", f"Validated scan input in {scan_mode} mode."],
+        ["2", "Target Resolution", "scanner/git_cloner.py", f"{scan_mode} scan target", "Resolves the supplied repository or local workspace for analysis."],
+        ["3", "Target Auto-Detection", "scanner/repo_detector.py", "Resolved scan workspace", "Detects supported database configuration and source-code inputs."],
+        ["4a", "PostgreSQL Analysis", "scanner/postgres_scanner.py", "PostgreSQL configuration and SQL files", "Applies database-specific crypto checks when applicable."],
+        ["4b", "Generic Code Analysis", "scanner/generic_scanner.py", "Supported source files", "Applies generic cryptographic usage rules to the scan target."],
+        ["5", "Findings Deduplication", "scanner/merger.py", "Raw findings from selected scanners", f"Groups findings into {score.get('total_assets', 'N/A')} assets and {score.get('total_occurrences', 'N/A')} occurrences."],
         ["6", "NIST Compliance Check", "scoring/nist_compliance.py", "Deduplicated findings", "Maps assets to FIPS 203 / 204 / 205 compliance standards."],
-        ["7", "Score Calculation", "scoring/weight_engine.py", "Deduplicated findings", "Computes Final Readiness Score = 15/100 (Grade F), 18 Total Migration Weeks."],
+        ["7", "Score Calculation", "scoring/weight_engine.py", "Deduplicated findings", f"Computes the latest readiness score: {score.get('score', 'N/A')}/100 (Grade {score.get('grade', 'N/A')})."],
         ["8", "CBOM Export", "output/cbom_generator.py", "Scored assets", "Generates CycloneDX cbom.json file."],
         ["9", "Score Report Export", "output/score_reporter.py", "Score dictionary", "Generates readiness_score.json and renders dashboard/index.html."],
         ["10", "Terminal & Cleanup", "pgcrypto_scanner.py", "Final results", "Prints terminal summary table and removes temporary clone folders."]
@@ -200,7 +216,6 @@ def generate_pdf():
         "   https://www.postgresql.org/docs/current/pgcrypto.html"
     )
 
-    output_path = "pqc_audit_report.pdf"
     pdf.output(output_path)
     print(f"PDF successfully generated at {output_path}")
 

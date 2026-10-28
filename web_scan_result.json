@@ -1,0 +1,142 @@
+{
+  "url": "https://cloudflare.com/",
+  "timestamp": "2026-10-09T20:09:15.587612+00:00",
+  "tls": {
+    "version": "TLSv1.3",
+    "cipher": "TLS_AES_256_GCM_SHA384",
+    "protocol": "TLSv1.3",
+    "bits": 256,
+    "subject": "cloudflare.com",
+    "issuer": "Google Trust Services",
+    "not_before": "Sep  5 22:29:39 2026 GMT",
+    "not_after": "Dec  4 23:29:33 2026 GMT",
+    "cert_type": "RSA",
+    "version_rating": "excellent",
+    "score": 25,
+    "max_score": 30
+  },
+  "headers": {
+    "raw": {
+      "date": "Fri, 09 Oct 2026 20:09:15 GMT",
+      "content-type": "text/html; charset=utf-8",
+      "connection": "close",
+      "link": "<https://www.cloudflare.com/.well-known/api-catalog>; rel=\"api-catalog\", <https://www.cloudflare.com/.well-known/agents.json>; rel=\"service-desc\", <https://www.cloudflare.com/.well-known/webmcp.json>; rel=\"service-desc\", <https://www.cloudflare.com/openapi.json>; rel=\"service-desc\", <https://www.cloudflare.com/llms.txt>; rel=\"service-doc\", <https://www.cloudflare.com/sitemap.xml>; rel=\"sitemap\", </fonts/Kunst%20Grotesk%20Regular.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, </fonts/Kunst%20Grotesk%20Medium.woff2>; rel=preload; as=font; type=\"font/woff2\"; crossorigin, <https://ot.www.cloudflare.com>; rel=preconnect; crossorigin, <https://imagedelivery.net>; rel=preconnect; crossorigin, </static/hero-poster.avif>; rel=preload; as=image; type=\"image/avif\"; fetchpriority=high",
+      "server-timing": "cfEdge;dur=5,cfOrigin;dur=0,cfWorker;dur=249",
+      "cache-control": "no-store",
+      "vary": "accept-encoding",
+      "strict-transport-security": "max-age=31536000; includeSubDomains",
+      "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests",
+      "cross-origin-opener-policy": "unsafe-none",
+      "cross-origin-resource-policy": "cross-origin",
+      "permissions-policy": "geolocation=(), camera=(), microphone=()",
+      "referrer-policy": "strict-origin-when-cross-origin",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-served-by": "marketing-site",
+      "x-xss-protection": "1; mode=block",
+      "x-rm": "GW",
+      "set-cookie": "__cf_bm=wnfLVp46RKQkjjuFnaYDeg_qsUx7i0K53w1kiVvHx.U-1791576555.736016-1.0.1.1-dTxgu10r8MZquiKNMlNMDqUl5hnr1Gp8YKkyFe5I67VrSTDkXzTE_dpUZsqCrxsPTTDH5vJLKX7JcjBIiie61puGCocUh43vVic1lkCFY7I1YF9mUkLNHz_J.xOq75Ci1iP6EGYfL.vjpHFdMF_2Cw; HttpOnly; SameSite=None; Secure; Path=/; Domain=www.cloudflare.com; Expires=Fri, 09 Oct 2026 20:39:15 GMT",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pNIDlXC%2FBHZEZRTIvudeIfFPX5nWyIJt%2BEwZFjpSfdPDJI9jd7DZA9ZCBr8jqy5SPZHVP6ARXMyueHD%2BCMoj2yLubBcy6YVmHMGPamxtWP8MvE3IEIP0OABaXUYFUVujXJfeh7oISqjPheWdbhLbNA%3D%3D\"}]}",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "server": "cloudflare",
+      "cf-ray": "a48005a1580c7f91-MAA",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "strict-transport-security": {
+      "present": true,
+      "value": "max-age=31536000; includeSubDomains",
+      "name": "HSTS"
+    },
+    "content-security-policy": {
+      "present": true,
+      "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://static-staging.cloudflareinsights.com https://challenges.cloudflare.com https://*.onetrust.com https://cdn.cookielaw.org https://ot.www.cloudflare.com https://www.googletagmanager.com https://tagmanager.google.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://adservice.google.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://platform.twitter.com https://static.ads-twitter.com https://scripts.demandbase.com https://tag.demandbase.com https://*.6sc.co https://*.qualified.com https://snap.licdn.com https://bat.bing.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.google.com https://*.doubleclick.net https://www.googleadservices.com https://translate.googleapis.com https://cdn.bizible.com https://js.adsrvr.org https://*.marketo.net https://ads-twitter.com https://analytics.twitter.com https://*.twimg.com https://api.demandbase.com https://scripts.demandbase.com https://tag.demandbase.com https://tag-logger.demandbase.com https://api.company-target.com https://*.6sc.co https://epsilon.6sense.com https://*.qualified.com https://*.ads.linkedin.com https://www.linkedin.com https://bat.bing.com https: wss://*.qualified.com wss://*.registrar.cloudflare.com; frame-src https://*.adsrvr.org https://*.cloudflare.com https://*.videodelivery.net https://*.cloudflarestream.com https://www.googletagmanager.com https://*.qualified.com https://td.doubleclick.net https://bid.g.doubleclick.net https://9309168.fls.doubleclick.net https://9973066.fls.doubleclick.net https://s.company-target.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; worker-src 'self' blob:; child-src 'self' blob:; upgrade-insecure-requests",
+      "name": "CSP"
+    },
+    "x-frame-options": {
+      "present": true,
+      "value": "SAMEORIGIN",
+      "name": "X-Frame-Options"
+    },
+    "x-content-type-options": {
+      "present": true,
+      "value": "nosniff",
+      "name": "X-Content-Type-Options"
+    },
+    "referrer-policy": {
+      "present": true,
+      "value": "strict-origin-when-cross-origin",
+      "name": "Referrer-Policy"
+    },
+    "permissions-policy": {
+      "present": true,
+      "value": "geolocation=(), camera=(), microphone=()",
+      "name": "Permissions-Policy"
+    },
+    "cross-origin-opener-policy": {
+      "present": true,
+      "value": "unsafe-none",
+      "name": "COOP"
+    },
+    "cross-origin-resource-policy": {
+      "present": true,
+      "value": "cross-origin",
+      "name": "CORP"
+    },
+    "score": 44,
+    "max_score": 25,
+    "final_url": "https://www.cloudflare.com/"
+  },
+  "crypto_libs": [],
+  "forms": [],
+  "cookies": [
+    {
+      "raw": "_ga=GA1.1.e5914283-04d4-485b-823a-e64041a2c3dc",
+      "flags": []
+    },
+    {
+      "raw": "cfz_google-analytics_v4={\"nzcr_ga4\":{\"v\":\"e5914283-04d4-485b-823a-e64041a2c3dc\",\"e\":1825790956653}}",
+      "flags": [
+        "Secure",
+        "HttpOnly",
+        "SameSite"
+      ]
+    },
+    {
+      "raw": "cfz_adobe={\"MsVJ_ecid\":{\"v\":\"CiY3ODg4Njc0NTk1MjcwODg3MzQ4MjkwMDk0MTMyODU1NDUzODE2MVIOCIyKo5KSNCoDVkE2MALwAYyKo5KSNA==\",\"e\":1825704556884}}",
+      "flags": [
+        "Secure",
+        "HttpOnly",
+        "SameSite"
+      ]
+    },
+    {
+      "raw": "kndctr_8AD56F28618A50850A495FB6_AdobeOrg_identity=CiY3ODg4Njc0NTk1MjcwODg3MzQ4MjkwMDk0MTMyODU1NDUzODE2MVIOCIyKo5KSNCoDVkE2MALwAYyKo5KSNA==",
+      "flags": [
+        "Secure",
+        "SameSite"
+      ]
+    },
+    {
+      "raw": "__cf_bm=kxSay.QUBdUYG.upNsIdM6aQDpwWlvhb1KfrJyF4PSY-1791576556.6461387-1.0.1.1-g19p7Qzgr_236mV8vW17hPT6LPkPnecPN5dh0j93hWI7qTkjUcvttZ3MzW1l3IQWSAYGCFe8j_tnozzKHH9Rx5BzofvQsRAwiSZyb4YBZa0vPrNAbkHmKFZJJN4phnSiTBXZLjAKMvveWwPMPhI0FA",
+      "flags": [
+        "Secure",
+        "HttpOnly",
+        "SameSite"
+      ]
+    }
+  ],
+  "score": 100,
+  "grade": "A",
+  "label": "PQC Ready",
+  "recommendations": [
+    "Enable Perfect Forward Secrecy with ECDHE key exchange",
+    "Eliminate mixed content (HTTP resources on HTTPS pages)",
+    "Set Secure flag on all cookies",
+    "Set HttpOnly flag on session cookies",
+    "Set HttpOnly flag on session cookies"
+  ],
+  "content_score": 0,
+  "content_max_score": 25,
+  "cookie_score": 29,
+  "cookie_max_score": 20
+}

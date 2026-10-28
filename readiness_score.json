@@ -1,74 +1,78 @@
 {
-  "project_name": "QuantumThreatTracker",
+  "project_name": "flask",
   "scan_mode": "github",
-  "timestamp": "2026-08-07T06:38:48Z",
+  "timestamp": "2026-10-09T20:07:44Z",
   "scanner_version": "1.0.0",
-  "repo_url": "https://github.com/qec-codes/QuantumThreatTracker.git",
+  "repo_url": "https://github.com/pallets/flask",
   "postgresql_detection": {
     "has_pg_config": false,
     "has_pg_hba": false,
-    "has_sql_files": false,
+    "has_sql_files": true,
     "has_pgcrypto_usage": false,
     "has_conn_strings": false,
-    "sql_files_count": 0,
-    "config_files_count": 1
+    "sql_files_count": 2,
+    "config_files_count": 4
   },
-  "score": 0,
-  "grade": "F",
-  "label": "PQC Non-Compliant",
-  "total_assets": 5,
-  "total_occurrences": 7937,
-  "vulnerable_assets": 5,
-  "safe_assets": 0,
-  "critical_assets": 4,
-  "high_risk_assets": 1,
+  "score": 46,
+  "grade": "D",
+  "label": "Major PQC Deficiencies",
+  "total_assets": 2,
+  "total_occurrences": 4,
+  "vulnerable_assets": 1,
+  "safe_assets": 1,
+  "critical_assets": 1,
+  "high_risk_assets": 0,
   "pqc_assets": 0,
   "risk_distribution": {
-    "critical": 7933,
-    "high": 4,
-    "safe": 0
+    "critical": 2,
+    "high": 0,
+    "safe": 2
   },
   "primitive_breakdown": {
-    "encryption": {
-      "total": 7921,
-      "vulnerable": 7921,
-      "safe": 0,
-      "weight": 5544.7,
-      "safe_weight": 0
+    "kdf": {
+      "total": 2,
+      "vulnerable": 0,
+      "safe": 2,
+      "weight": 1.0,
+      "safe_weight": 1.0
     },
-    "key-encapsulation": {
-      "total": 12,
-      "vulnerable": 12,
+    "hash": {
+      "total": 2,
+      "vulnerable": 2,
       "safe": 0,
-      "weight": 12.0,
-      "safe_weight": 0
-    },
-    "certificate": {
-      "total": 4,
-      "vulnerable": 4,
-      "safe": 0,
-      "weight": 3.6,
+      "weight": 0.8,
       "safe_weight": 0
     }
   },
   "family_breakdown": {
-    "DES": {
+    "KDF": {
       "total": 0,
-      "vulnerable": 7921,
-      "safe": 0
+      "vulnerable": 0,
+      "safe": 2
     },
-    "RSA": {
+    "SHA-1": {
       "total": 0,
-      "vulnerable": 16,
+      "vulnerable": 2,
       "safe": 0
     }
   },
-  "language_breakdown": {},
+  "language_breakdown": {
+    "sql": {
+      "total": 2,
+      "vulnerable": 0,
+      "safe": 2
+    },
+    "python": {
+      "total": 2,
+      "vulnerable": 2,
+      "safe": 0
+    }
+  },
   "source_breakdown": {
     "generic": {
-      "total": 7937,
-      "vulnerable": 7937,
-      "safe": 0
+      "total": 4,
+      "vulnerable": 2,
+      "safe": 2
     },
     "postgresql": {
       "total": 0,
@@ -77,113 +81,52 @@
     }
   },
   "timeline": {
-    "weeks": 33,
-    "label": "Long-term",
-    "description": "6+ month transformation initiative"
+    "weeks": 4,
+    "label": "Short-term",
+    "description": "1-2 months of work"
   },
   "migration_roadmap": [
     {
-      "algorithm": "DES/3DES",
-      "current": "DES/3DES",
-      "replacement": "AES-256-GCM",
+      "algorithm": "SHA-1",
+      "current": "SHA-1",
+      "replacement": "SHA-256 / SHA-3-256",
       "priority": "P0-Critical",
       "priority_order": 0,
       "effort": "Low",
       "effort_weeks": 1,
-      "occurrences": 7921,
+      "occurrences": 2,
       "files": [
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=3.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/pyproject.toml"
+        "/var/folders/zh/hky4yvss1vd5hnmytmt_9kl40000gn/T/pg_pqc_scan_e0nin4z5/src/flask/sessions.py"
       ],
-      "primitive": "encryption",
+      "primitive": "hash",
       "risk": 0,
-      "file_count": 2
+      "file_count": 1
     },
     {
-      "algorithm": "RSA-1024",
-      "current": "RSA-1024",
-      "replacement": "ML-KEM-1024 (FIPS 203)",
-      "priority": "P0-Critical",
-      "priority_order": 0,
-      "effort": "High",
-      "effort_weeks": 8,
-      "occurrences": 4,
+      "algorithm": "PBKDF2",
+      "current": "PBKDF2",
+      "replacement": "Consider migrating to Argon2id",
+      "priority": "P2-Medium",
+      "priority_order": 2,
+      "effort": "Medium",
+      "effort_weeks": 3,
+      "occurrences": 2,
       "files": [
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=2.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=3.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=1.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=0.json"
+        "/var/folders/zh/hky4yvss1vd5hnmytmt_9kl40000gn/T/pg_pqc_scan_e0nin4z5/examples/tutorial/tests/data.sql"
       ],
-      "primitive": "key-encapsulation",
-      "risk": 0,
-      "file_count": 4
-    },
-    {
-      "algorithm": "RSA-2048",
-      "current": "RSA-2048",
-      "replacement": "ML-KEM-1024 (FIPS 203)",
-      "priority": "P0-Critical",
-      "priority_order": 0,
-      "effort": "High",
-      "effort_weeks": 8,
-      "occurrences": 4,
-      "files": [
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=2.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=3.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=1.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=0.json"
-      ],
-      "primitive": "key-encapsulation",
-      "risk": 0,
-      "file_count": 4
-    },
-    {
-      "algorithm": "RSA-2048 Certificate",
-      "current": "RSA-2048 Certificate",
-      "replacement": "ML-KEM-1024 (FIPS 203) or ECDSA P-384",
-      "priority": "P0-Critical",
-      "priority_order": 0,
-      "effort": "High",
-      "effort_weeks": 8,
-      "occurrences": 4,
-      "files": [
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=2.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=3.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=1.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=0.json"
-      ],
-      "primitive": "certificate",
-      "risk": 0,
-      "file_count": 4
-    },
-    {
-      "algorithm": "RSA-4096",
-      "current": "RSA-4096",
-      "replacement": "ML-KEM-1024 (FIPS 203)",
-      "priority": "P1-High",
-      "priority_order": 1,
-      "effort": "High",
-      "effort_weeks": 8,
-      "occurrences": 4,
-      "files": [
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=2.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=3.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=1.json",
-        "/var/folders/01/593jxwh50j12n25bdj4bqg480000gn/T/pg_pqc_scan_45ct2s5e/data/threat_reports/sample_threat_report_detail=0.json"
-      ],
-      "primitive": "key-encapsulation",
-      "risk": 1,
-      "file_count": 4
+      "primitive": "kdf",
+      "risk": 2,
+      "file_count": 1
     }
   ],
   "scoring_details": {
-    "base_score": 0.0,
+    "base_score": 55.6,
     "pqc_bonus": 0.0,
-    "critical_penalty": 15,
+    "critical_penalty": 10.0,
     "diversity_penalty": 0,
     "pg_penalty": 0,
-    "total_weight": 5560.3,
-    "safe_weight": 0
+    "total_weight": 1.8,
+    "safe_weight": 1.0
   },
   "compliance": {
     "fips_203_ml_kem": {
@@ -218,7 +161,7 @@
       "name": "No Deprecated Algorithms",
       "standard": "NIST SP 800-131A",
       "description": "No algorithms deprecated by NIST",
-      "passed": false,
+      "passed": true,
       "required": true
     },
     "tls_1_3_enabled": {

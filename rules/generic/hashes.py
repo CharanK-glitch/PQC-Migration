@@ -15,7 +15,7 @@ HASH_RULES = [
             "javascript": r"\b(crypto\.createHash\(['\"]md5['\"]|createHash\(['\"]md5['\"])",
             "go": r"\b(crypto/md5|md5\.New|md5\.Sum|crypto\.MD5)",
             "c": r"\b(MD5|EVP_get_digestbyname\(['\"]MD5['\"]|EVP_md5\(\))",
-            "config": r"\b(md5|MD5)",
+            "config": r"(?i)^\s*(password_encryption|ssl_ciphers|auth_method)\s*=\s*.*\bmd5\b",
             "sql": r"\b(MD5\(|'md5'|\"md5\")",
         },
         "algorithm": {
@@ -41,7 +41,7 @@ HASH_RULES = [
             "javascript": r"\b(crypto\.createHash\(['\"]sha1['\"])",
             "go": r"\b(crypto/sha1|sha1\.New|sha1\.Sum|crypto\.SHA1)",
             "c": r"\b(SHA1|EVP_sha1\(\)|EVP_get_digestbyname\(['\"]sha1['\"])\)",
-            "config": r"\b(sha1|SHA-?1)",
+            "config": r"(?i)^\s*(password_encryption|ssl_ciphers)\s*=\s*.*\bsha1\b",
             "sql": r"\b(SHA1\(|'sha1'|\"sha1\")",
         },
         "algorithm": {

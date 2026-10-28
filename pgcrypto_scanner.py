@@ -72,6 +72,15 @@ Examples:
         help="PostgreSQL host for live instance scanning (requires psycopg2)"
     )
     input_group.add_argument(
+        "--batch", "-b",
+        help="File containing multiple GitHub URLs (one per line) to scan"
+    )
+    input_group.add_argument(
+        "--multi", "-m",
+        nargs="+",
+        help="Multiple GitHub URLs to scan in one run"
+    )
+    input_group.add_argument(
         "--port", "-p",
         type=int, default=5432,
         help="PostgreSQL port (default: 5432)"
@@ -230,106 +239,109 @@ Examples:
             conn = psycopg2.connect(
                 host=args.host,
                 port=args.port,
-                user=args.user
+                user=args.user,
+                password=args.password
             )
-            cur = conn.cursor()
+            try:
+                cur = conn.cursor()
 
-            # Query SSL settings
-            ssl_settings = [
-                "ssl", "ssl_cert_file", "ssl_key_file", "ssl_ca_file",
-                "ssl_min_protocol_version", "ssl_ciphers",
-                "password_encryption", "wal_level"
-            ]
+                # Query SSL settings
+                ssl_settings = [
+                    "ssl", "ssl_cert_file", "ssl_key_file", "ssl_ca_file",
+                    "ssl_min_protocol_version", "ssl_ciphers",
+                    "password_encryption", "wal_level"
+                ]
 
-            for setting in ssl_settings:
+                for setting in ssl_settings:
+                    try:
+                        cur.execute(f"SHOW {setting}")
+                        value = cur.fetchone()[0]
+                        all_findings.append({
+                            "rule_id": f"pg_live_{setting}",
+                            "rule_name": f"Live: {setting}",
+                            "category": "pg_live",
+                            "file": f"postgresql://{args.host}:{args.port}",
+                            "line_number": 0,
+                            "content": f"{setting} = {value}",
+                            "language": "config",
+                            "algorithm": {
+                                "algorithmFamily": "PostgreSQL",
+                                "algorithmName": setting,
+                                "primitive": "configuration",
+                                "risk": 0 if "on" in value.lower() or "scram" in value.lower() else 1,
+                                "nistQuantumSecurityLevel": 1,
+                                "classicalSecurityLevel": 256,
+                                "securityProperties": [],
+                            },
+                            "replacement": "",
+                            "priority": "P3-Low",
+                            "effort": "None",
+                            "source": "postgresql",
+                        })
+                    except Exception:
+                        pass
+
+                # Check for pgcrypto extension
                 try:
-                    cur.execute(f"SHOW {setting}")
-                    value = cur.fetchone()[0]
+                    cur.execute("SELECT extname FROM pg_extension WHERE extname = 'pgcrypto'")
+                    if cur.fetchone():
+                        all_findings.append({
+                            "rule_id": "pg_live_pgcrypto",
+                            "rule_name": "Live: pgcrypto Extension",
+                            "category": "pg_live",
+                            "file": f"postgresql://{args.host}:{args.port}",
+                            "line_number": 0,
+                            "content": "pgcrypto extension installed",
+                            "language": "sql",
+                            "algorithm": {
+                                "algorithmFamily": "pgcrypto",
+                                "algorithmName": "pgcrypto Extension",
+                                "primitive": "encryption",
+                                "risk": 2,
+                                "nistQuantumSecurityLevel": 1,
+                                "classicalSecurityLevel": 256,
+                                "securityProperties": ["pgcrypto-installed"],
+                            },
+                            "replacement": "",
+                            "priority": "P4-Safe",
+                            "effort": "None",
+                            "source": "postgresql",
+                        })
+                except Exception:
+                    pass
+
+                # Check SSL status
+                try:
+                    cur.execute("SELECT ssl FROM pg_stat_ssl WHERE pid = pg_backend_pid()")
+                    ssl_used = cur.fetchone()[0]
                     all_findings.append({
-                        "rule_id": f"pg_live_{setting}",
-                        "rule_name": f"Live: {setting}",
+                        "rule_id": "pg_live_ssl_status",
+                        "rule_name": "Live: SSL Connection Status",
                         "category": "pg_live",
                         "file": f"postgresql://{args.host}:{args.port}",
                         "line_number": 0,
-                        "content": f"{setting} = {value}",
+                        "content": f"SSL in use: {ssl_used}",
                         "language": "config",
                         "algorithm": {
-                            "algorithmFamily": "PostgreSQL",
-                            "algorithmName": setting,
-                            "primitive": "configuration",
-                            "risk": 0 if "on" in value.lower() or "scram" in value.lower() else 1,
-                            "nistQuantumSecurityLevel": 1,
-                            "classicalSecurityLevel": 256,
-                            "securityProperties": [],
+                            "algorithmFamily": "TLS",
+                            "algorithmName": "Live SSL Status",
+                            "primitive": "certificate",
+                            "risk": 2 if ssl_used else 0,
+                            "nistQuantumSecurityLevel": 1 if ssl_used else 0,
+                            "classicalSecurityLevel": 256 if ssl_used else 0,
+                            "securityProperties": ["ssl-active"] if ssl_used else ["no-ssl"],
                         },
-                        "replacement": "",
-                        "priority": "P3-Low",
+                        "replacement": "" if ssl_used else "Enable SSL connections",
+                        "priority": "P4-Safe" if ssl_used else "P0-Critical",
                         "effort": "None",
                         "source": "postgresql",
                     })
                 except Exception:
                     pass
 
-            # Check for pgcrypto extension
-            try:
-                cur.execute("SELECT extname FROM pg_extension WHERE extname = 'pgcrypto'")
-                if cur.fetchone():
-                    all_findings.append({
-                        "rule_id": "pg_live_pgcrypto",
-                        "rule_name": "Live: pgcrypto Extension",
-                        "category": "pg_live",
-                        "file": f"postgresql://{args.host}:{args.port}",
-                        "line_number": 0,
-                        "content": "pgcrypto extension installed",
-                        "language": "sql",
-                        "algorithm": {
-                            "algorithmFamily": "pgcrypto",
-                            "algorithmName": "pgcrypto Extension",
-                            "primitive": "encryption",
-                            "risk": 2,
-                            "nistQuantumSecurityLevel": 1,
-                            "classicalSecurityLevel": 256,
-                            "securityProperties": ["pgcrypto-installed"],
-                        },
-                        "replacement": "",
-                        "priority": "P4-Safe",
-                        "effort": "None",
-                        "source": "postgresql",
-                    })
-            except Exception:
-                pass
-
-            # Check SSL status
-            try:
-                cur.execute("SELECT ssl FROM pg_stat_ssl WHERE pid = pg_backend_pid()")
-                ssl_used = cur.fetchone()[0]
-                all_findings.append({
-                    "rule_id": "pg_live_ssl_status",
-                    "rule_name": "Live: SSL Connection Status",
-                    "category": "pg_live",
-                    "file": f"postgresql://{args.host}:{args.port}",
-                    "line_number": 0,
-                    "content": f"SSL in use: {ssl_used}",
-                    "language": "config",
-                    "algorithm": {
-                        "algorithmFamily": "TLS",
-                        "algorithmName": "Live SSL Status",
-                        "primitive": "certificate",
-                        "risk": 2 if ssl_used else 0,
-                        "nistQuantumSecurityLevel": 1 if ssl_used else 0,
-                        "classicalSecurityLevel": 256 if ssl_used else 0,
-                        "securityProperties": ["ssl-active"] if ssl_used else ["no-ssl"],
-                    },
-                    "replacement": "" if ssl_used else "Enable SSL connections",
-                    "priority": "P4-Safe" if ssl_used else "P0-Critical",
-                    "effort": "None",
-                    "source": "postgresql",
-                })
-            except Exception:
-                pass
-
-            conn.close()
-            print(f"      Live scan complete")
+                print(f"      Live scan complete")
+            finally:
+                conn.close()
 
         except ImportError:
             print("      WARNING: psycopg2 not installed. Install with: pip install psycopg2-binary")

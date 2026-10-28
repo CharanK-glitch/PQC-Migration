@@ -1,0 +1,31 @@
+{
+  "score": 63,
+  "partial_score": 63,
+  "grade": "B",
+  "label": "Partially Ready",
+  "answered": 35,
+  "total_questions": 35,
+  "categories": {
+    "Infrastructure": {
+      "score": 69.6,
+      "max_score": 100.0,
+      "percentage": 70
+    },
+    "Application Layer": {
+      "score": 66.3,
+      "max_score": 107.0,
+      "percentage": 62
+    },
+    "Data Protection": {
+      "score": 43.7,
+      "max_score": 78.0,
+      "percentage": 56
+    },
+    "Compliance & Governance": {
+      "score": 47.5,
+      "max_score": 74.0,
+      "percentage": 64
+    }
+  },
+  "timestamp": "2026-10-09T20:31:59.449163+00:00"
+}

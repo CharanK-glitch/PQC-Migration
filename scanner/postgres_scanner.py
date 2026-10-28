@@ -29,7 +29,8 @@ PG_EXTENSION_MAP = {
     ".ts": "javascript", ".tsx": "javascript", ".jsx": "javascript",
     ".go": "go",
     ".c": "c", ".h": "c", ".cpp": "c", ".cc": "c", ".cxx": "c", ".hpp": "c",
-    ".rs": "c",
+    ".rs": "rust",
+    ".php": "php",
     ".rb": "python",
     ".conf": "config", ".cfg": "config", ".ini": "config",
     ".yaml": "config", ".yml": "config", ".toml": "config",
@@ -164,16 +165,86 @@ class PostgresScanner:
             return self._check_ssl_min_protocol(line)
         elif check_func == "check_ssl_ciphers":
             return self._check_ssl_ciphers(line)
+        elif check_func == "check_ssl_cert_configured":
+            return {"status": "safe", "detail": "SSL certificate is configured"} if re.search(r"=\s*['\"]?.+['\"]?", line) else {"status": "vulnerable", "detail": "SSL certificate not configured"}
+        elif check_func == "check_ssl_key_configured":
+            return {"status": "safe", "detail": "SSL key is configured"} if re.search(r"=\s*['\"]?.+['\"]?", line) else {"status": "vulnerable", "detail": "SSL key not configured"}
+        elif check_func == "check_ssl_ca_configured":
+            return {"status": "safe", "detail": "SSL CA is configured"} if re.search(r"=\s*['\"]?.+['\"]?", line) else {"status": "vulnerable", "detail": "SSL CA not configured"}
+        elif check_func == "check_ssl_prefer_server_ciphers":
+            return {"status": "safe", "detail": "Server cipher preference enabled"} if re.search(r"=\s*(on|1)", line) else {"status": "warning", "detail": "Server cipher preference disabled"}
+        elif check_func == "check_ssl_ecdh_curve":
+            match = re.search(r"=\s*['\"](.+?)['\"]", line)
+            if match:
+                curve = match.group(1)
+                if "secp256k1" in curve or "prime256v1" in curve:
+                    return {"status": "vulnerable", "detail": f"ECDSA curve {curve} is quantum-vulnerable"}
+                return {"status": "safe", "detail": f"ECDH curve: {curve}"}
+            return None
+        elif check_func == "check_ssl_dh_params":
+            return {"status": "safe", "detail": "DH parameters configured"} if re.search(r"=\s*['\"]?.+['\"]?", line) else {"status": "vulnerable", "detail": "DH parameters not configured"}
+        elif check_func == "check_ssl_max_protocol":
+            match = re.search(r"=\s*['\"]?(\w+)['\"]?", line)
+            if match:
+                version = match.group(1)
+                if "1.3" in version:
+                    return {"status": "safe", "detail": f"Maximum TLS version: {version}"}
+                return {"status": "warning", "detail": f"Consider setting max TLS version to 1.3: {version}"}
+            return None
         elif check_func == "check_hba_md5":
             return {"status": "vulnerable", "detail": "MD5 auth is quantum-vulnerable"}
+        elif check_func == "check_hba_password":
+            return {"status": "vulnerable", "detail": "Password auth transmits credentials in plaintext"}
         elif check_func == "check_hba_scram":
             return {"status": "safe", "detail": "SCRAM-SHA-256 is quantum-safe"}
+        elif check_func == "check_hba_cert":
+            return {"status": "safe", "detail": "Certificate-based auth is quantum-safe"}
+        elif check_func == "check_hba_ldap":
+            return {"status": "warning", "detail": "LDAP auth - depends on LDAP server configuration"}
+        elif check_func == "check_hba_gss":
+            return {"status": "warning", "detail": "GSSAPI auth - depends on Kerberos configuration"}
+        elif check_func == "check_hba_ident":
+            return {"status": "vulnerable", "detail": "Ident auth is insecure and deprecated"}
         elif check_func == "check_password_encryption":
             return self._check_password_encryption(line)
         elif check_func == "check_pgcrypto_pub":
             return {"status": "vulnerable", "detail": "pgp_pub_encrypt uses RSA - quantum-vulnerable"}
         elif check_func == "check_pgcrypto_sym":
             return {"status": "safe", "detail": "pgp_sym_encrypt uses AES - quantum-safe"}
+        elif check_func == "check_pgcrypto_pub_decrypt":
+            return {"status": "vulnerable", "detail": "pgp_pub_decrypt uses RSA - quantum-vulnerable"}
+        elif check_func == "check_pgcrypto_sym_decrypt":
+            return {"status": "safe", "detail": "pgp_sym_decrypt uses AES - quantum-safe"}
+        elif check_func == "check_pgcrypto_sym_bytea":
+            return {"status": "safe", "detail": "pgp_sym_encrypt_bytea uses AES - quantum-safe"}
+        elif check_func == "check_digest_md5":
+            return {"status": "vulnerable", "detail": "MD5 digest is quantum-vulnerable"}
+        elif check_func == "check_digest_sha1":
+            return {"status": "vulnerable", "detail": "SHA-1 digest is quantum-vulnerable"}
+        elif check_func == "check_digest_sha256":
+            return {"status": "safe", "detail": "SHA-256 digest is quantum-safe"}
+        elif check_func == "check_hmac_sha256":
+            return {"status": "safe", "detail": "HMAC-SHA256 is quantum-safe"}
+        elif check_func == "check_hmac_md5":
+            return {"status": "vulnerable", "detail": "HMAC-MD5 is quantum-vulnerable"}
+        elif check_func == "check_gen_salt_bf":
+            return {"status": "safe", "detail": "gen_salt with bcrypt is quantum-safe"}
+        elif check_func == "check_gen_salt_md5":
+            return {"status": "vulnerable", "detail": "gen_salt with md5 is quantum-vulnerable"}
+        elif check_func == "check_gen_salt_xsha256":
+            return {"status": "safe", "detail": "gen_salt with scram-sha-256 is quantum-safe"}
+        elif check_func == "check_wal_level":
+            match = re.search(r"=\s*(\w+)", line)
+            if match:
+                level = match.group(1)
+                if level in ("logical", "replica"):
+                    return {"status": "safe", "detail": f"WAL level: {level}"}
+                return {"status": "warning", "detail": f"WAL level {level} - consider logical for PITR"}
+            return None
+        elif check_func == "check_wal_encryption":
+            return {"status": "safe", "detail": "WAL encryption is enabled"} if re.search(r"=\s*(on|1)", line) else {"status": "vulnerable", "detail": "WAL encryption is disabled"}
+        elif check_func == "check_tablespace_encrypt":
+            return {"status": "safe", "detail": "Tablespace encryption is enabled"} if re.search(r"=\s*(on|1)", line) else {"status": "vulnerable", "detail": "Tablespace encryption is disabled"}
 
         return None
 

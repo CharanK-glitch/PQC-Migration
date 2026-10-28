@@ -128,7 +128,7 @@ def _relative_path(filepath: str, base_path: str) -> str:
     """Get relative path from base."""
     if filepath.startswith(base_path):
         return filepath[len(base_path):].lstrip("/")
-    return filepath
+    return filepath.split("/")[-1] if "/" in filepath else filepath
 
 
 def save_cbom(cbom: Dict, output_path: str):

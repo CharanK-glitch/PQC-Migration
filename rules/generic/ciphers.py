@@ -15,7 +15,7 @@ CIPHER_RULES = [
             "javascript": r"\b(cipher\.createDecipheriv\(['\"]des-|createCipheriv\(['\"]des-)",
             "go": r"\b(crypto/des|des\.NewCipher|des\.NewTripleCipher)",
             "c": r"\b(DES_.*|EVP_des_|EVP_ede)",
-            "config": r"\b(DES|des-cbc|des-ede)",
+            "config": r"(?i)^\s*ssl_ciphers\s*=\s*.*\b(DES|des-cbc|des-ede)\b",
             "sql": r"\b(DES|'des'|\"des\")",
         },
         "algorithm": {
